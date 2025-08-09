@@ -23,6 +23,7 @@ Ideal for educational applications, scientific tools, dynamic formula editors, o
     -   Integrals (`\int_{...}^{...}{...}`)
     -   Summations (`\sum_{...}^{...}{...}`)
     -   Standard operators, numbers, variables, and symbols.
+-   **✨ Simplified Input with `MathInputController`**: Offers a convenient, "button-press" like interface for quickly building expressions, abstracting away the underlying `METype` and content details for common inputs.
 -   **🚀 Pure Dart & Cross-Platform Compatibility**: Developed entirely in Dart, ensuring seamless integration and consistent performance across all Dart and Flutter supported platforms (Web, Mobile, Desktop).
 -   **⚡️ Optimized Performance**: Employs a "dirty-checking" mechanism to intelligently recompute only the modified segments of the LaTeX string, minimizing overhead and ensuring efficient rendering, particularly for dynamic or frequently updated expressions.
 
@@ -52,7 +53,7 @@ Integrate `math_expressions_builder` into your Dart or Flutter project by adding
 
 ```yaml
 dependencies:
-  math_expressions_builder: ^1.0.1 # Always use the latest stable version
+  math_expressions_builder: ^1.0.2 # Always use the latest stable version
 ```
 
 Then, execute `flutter pub get` or `dart pub get` to fetch the package.
@@ -84,6 +85,39 @@ void main() {
 
   tree.addChildLeaf(METype.numberLeaf, "1");
   print(tree.toLaTeXString()); // Output: \(5+1|\)
+}
+```
+
+### Simplified Input with `MathInputController`
+
+The `MathInputController` provides a more intuitive, "button-press" like interface for building expressions, abstracting away the underlying `METype` and content details for common inputs.
+
+```dart
+import 'package:math_expressions_builder/math_expressions_builder.dart';
+
+void main() {
+  final tree = MathTree();
+  final controller = MathInputController(tree);
+
+  controller.pressOne();
+  controller.pressPlus();
+  controller.pressNumber("12"); // Use for multi-digit numbers
+  controller.pressMultiply();
+  controller.pressEight();
+
+  print(tree.toLaTeXString()); // Output: \(1+12\times8|\)
+
+  controller.pressClear(); // Clear the tree
+  controller.pressFraction();
+  controller.pressOne();
+  controller.moveDown();
+  controller.pressTwo();
+  controller.moveRight();
+  controller.pressPlus();
+  controller.pressSquareRoot();
+  controller.pressNumber("16");
+
+  print(tree.toLaTeXString()); // Output: \(\frac{1}{2}+\sqrt{16|}\)
 }
 ```
 
@@ -147,6 +181,17 @@ The `math_expressions_builder` API is designed for clarity and ease of use:
     -   `delete()`: Removes the element or node immediately to the left of the cursor. Handles complex node deletions gracefully.
     -   `clear()`: Resets the entire expression tree to an empty state.
     -   `toLaTeXString()`: A method that returns the fully rendered LaTeX string of the current expression, including the cursor marker.
+-   **`MathInputController`**: Provides a simplified interface for common input actions.
+    -   `pressZero()` through `pressNine()`: Add single digit numbers.
+    -   `pressNumber(String number)`: Add multi-digit numbers.
+    -   `pressPlus()`, `pressMinus()`, `pressMultiply()`, `pressDivide()`: Add common operators.
+    -   `pressOperator(String operator)`: Add custom operators.
+    -   `pressFraction()`, `pressSquareRoot()`, `pressCubeRoot()`, `pressNthRoot()`, `pressPower()`, `pressIntegral()`, `pressSummation()`: Add structural nodes.
+    -   `pressFunction(String functionName)`, `pressInverseFunction(String functionName)`: Add function nodes.
+    -   `pressVariable(String variable)`, `pressSymbol(String symbol)`, `pressSpecialSymbol(String symbol)`, `pressText(String text)`: Add various leaf types.
+    -   `moveUp()`, `moveDown()`, `moveLeft()`, `moveRight()`: Navigate the cursor.
+    -   `pressDelete()`: Delete the element at the cursor.
+    -   `pressClear()`: Clear the entire tree.
 -   **`METype`**: An enumeration defining all supported types of LaTeX leaves and nodes, ensuring type-safe and explicit element creation.
 
 ## Advanced Topics & Extensibility
