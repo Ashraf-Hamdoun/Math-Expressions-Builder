@@ -1,3 +1,6 @@
+## 1.0.1
+    - Format files to match the Dart formatter.
+
 ## 1.0.0
 
 - Initial release of the package.
