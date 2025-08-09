@@ -52,7 +52,7 @@ Integrate `math_expressions_builder` into your Dart or Flutter project by adding
 
 ```yaml
 dependencies:
-  math_expressions_builder: ^1.0.0 # Always use the latest stable version
+  math_expressions_builder: ^1.0.1 # Always use the latest stable version
 ```
 
 Then, execute `flutter pub get` or `dart pub get` to fetch the package.
@@ -158,7 +158,7 @@ The `math_expressions_builder` API is designed for clarity and ease of use:
 
 ## Contributing
 
-We welcome contributions from the community! If you encounter any bugs, have feature requests, or wish to contribute code, please refer to our [issue tracker](https://github.com/Ashraf-Hamdoun/math_expressions_builder/issues) and consider opening a pull request. Adherence to existing code style and testing practices is appreciated.
+We welcome contributions from the community! If you encounter any bugs, have feature requests, or wish to contribute code, please refer to our [issue tracker](https://github.com/Ashraf-Hamdoun/Math-Expressions-Builder/issues) and consider opening a pull request. Adherence to existing code style and testing practices is appreciated.
 
 ## License
 
