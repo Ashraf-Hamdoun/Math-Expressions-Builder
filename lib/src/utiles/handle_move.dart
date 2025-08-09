@@ -1,21 +1,21 @@
-import 'package:math_latex_builder/src/constants/directions.dart';
-import 'package:math_latex_builder/src/constants/latex_element_type.dart';
-import 'package:math_latex_builder/src/core/latex_element.dart';
-import 'package:math_latex_builder/src/core/latex_node.dart';
-import 'package:math_latex_builder/src/elements/nodes/latex_fraction_node.dart';
-import 'package:math_latex_builder/src/elements/nodes/latex_integral_node.dart';
-import 'package:math_latex_builder/src/elements/nodes/latex_node_with_initial_type.dart';
-import 'package:math_latex_builder/src/elements/nodes/latex_nth_root_node.dart';
-import 'package:math_latex_builder/src/elements/nodes/latex_summation_node.dart';
-import 'package:math_latex_builder/src/utiles/search_for_specific_node.dart';
+import 'package:math_expressions_builder/src/constants/directions.dart';
+import 'package:math_expressions_builder/src/constants/math_element_type.dart';
+import 'package:math_expressions_builder/src/core/math_element.dart';
+import 'package:math_expressions_builder/src/core/math_node.dart';
+import 'package:math_expressions_builder/src/elements/nodes/math_fraction_node.dart';
+import 'package:math_expressions_builder/src/elements/nodes/math_integral_node.dart';
+import 'package:math_expressions_builder/src/elements/nodes/math_node_with_initial_type.dart';
+import 'package:math_expressions_builder/src/elements/nodes/math_nth_root_node.dart';
+import 'package:math_expressions_builder/src/elements/nodes/math_summation_node.dart';
+import 'package:math_expressions_builder/src/utiles/search_for_specific_node.dart';
 
 /// Handles the movement of the cursor in the LaTeX tree.
 ///
 /// This function is responsible for determining the new active node based on the
 /// current active node and the direction of movement. It also handles moving
 /// in and out of nodes, such as fractions and roots.
-LaTeXNode? handleMove(Direction direction, LaTeXNode parent) {
-  LaTeXNode? proposedParent;
+MathNode? handleMove(Direction direction, MathNode parent) {
+  MathNode? proposedParent;
 
   switch (direction) {
     case Direction.right:
@@ -34,23 +34,23 @@ LaTeXNode? handleMove(Direction direction, LaTeXNode parent) {
 
   if (proposedParent != null && proposedParent != parent) {
     if (proposedParent.childrenIDs.contains(parent.id)) {
-      if (proposedParent is LaTeXFractionNode) {
+      if (proposedParent is MathFractionNode) {
         proposedParent = proposedParent.move(direction);
-      } else if (proposedParent is LaTeXNthRootNode) {
+      } else if (proposedParent is MathNthRootNode) {
         proposedParent = proposedParent.move(direction);
-      } else if (proposedParent is LaTeXIntegralNode) {
+      } else if (proposedParent is MathIntegralNode) {
         proposedParent = proposedParent.move(direction);
-      } else if (proposedParent is LaTeXSummationNode) {
+      } else if (proposedParent is MathSummationNode) {
         proposedParent = proposedParent.move(direction);
       }
     } else {
-      if (proposedParent is LaTeXFractionNode) {
+      if (proposedParent is MathFractionNode) {
         proposedParent = proposedParent.numerator;
-      } else if (proposedParent is LaTeXNthRootNode) {
+      } else if (proposedParent is MathNthRootNode) {
         proposedParent = proposedParent.indexOfRoot;
-      } else if (proposedParent is LaTeXIntegralNode) {
+      } else if (proposedParent is MathIntegralNode) {
         proposedParent = proposedParent.lowerLimit;
-      } else if (proposedParent is LaTeXSummationNode) {
+      } else if (proposedParent is MathSummationNode) {
         proposedParent = proposedParent.lowerLimit;
       }
     }
@@ -60,17 +60,17 @@ LaTeXNode? handleMove(Direction direction, LaTeXNode parent) {
 }
 
 /// Handles moving the cursor to the right.
-LaTeXNode? handleMoveRight(LaTeXNode parent) {
-  LaTeXNode? proposedParent;
-  LaTeXNode? grandParent = parent.parent;
+MathNode? handleMoveRight(MathNode parent) {
+  MathNode? proposedParent;
+  MathNode? grandParent = parent.parent;
   int position = parent.position;
 
   // Still inside the parent and there are available moves.
   if (position < parent.children.length - 1) {
     // if the next child is a node, then we must enter it
-    if (parent.children[position + 1] is LaTeXNode) {
+    if (parent.children[position + 1] is MathNode) {
       parent.position++;
-      proposedParent = parent.children[position + 1] as LaTeXNode;
+      proposedParent = parent.children[position + 1] as MathNode;
     } else {
       parent.position++;
       proposedParent = parent;
@@ -78,9 +78,9 @@ LaTeXNode? handleMoveRight(LaTeXNode parent) {
   } else {
     // At the end and the available move to go outside.
     if (grandParent != null) {
-      if (grandParent is LaTeXIntegralNode) {
+      if (grandParent is MathIntegralNode) {
         proposedParent = grandParent.move(Direction.right);
-      } else if (grandParent is LaTeXSummationNode) {
+      } else if (grandParent is MathSummationNode) {
         proposedParent = grandParent.move(Direction.right);
       } else {
         proposedParent = grandParent;
@@ -94,27 +94,27 @@ LaTeXNode? handleMoveRight(LaTeXNode parent) {
 }
 
 /// Handles moving the cursor to the left.
-LaTeXNode? handleMoveLeft(LaTeXNode parent) {
-  LaTeXNode? proposedParent;
-  LaTeXNode? grandParent = parent.parent;
+MathNode? handleMoveLeft(MathNode parent) {
+  MathNode? proposedParent;
+  MathNode? grandParent = parent.parent;
   int position = parent.position;
 
   if (position > 0) {
-    LaTeXElement laTeXElement = parent.children[position];
-    if (laTeXElement is LaTeXNode) {
-      proposedParent = laTeXElement;
+    MathElement mathElement = parent.children[position];
+    if (mathElement is MathNode) {
+      proposedParent = mathElement;
     } else {
       parent.position--;
       proposedParent = parent;
     }
   } else {
     if (grandParent != null) {
-      if (grandParent is LaTeXFractionNode) {
+      if (grandParent is MathFractionNode) {
         proposedParent = grandParent.move(Direction.left);
       }
-      if (grandParent is LaTeXIntegralNode) {
+      if (grandParent is MathIntegralNode) {
         proposedParent = grandParent.move(Direction.left);
-      } else if (grandParent is LaTeXSummationNode) {
+      } else if (grandParent is MathSummationNode) {
         proposedParent = grandParent.move(Direction.left);
       } else {
         grandParent.position--;
@@ -129,19 +129,19 @@ LaTeXNode? handleMoveLeft(LaTeXNode parent) {
 }
 
 /// Handles moving the cursor down.
-LaTeXNode? handleMoveDown(LaTeXNode parent) {
-  LaTeXNode? proposedParent;
-  LaTeXNode? grandParent = parent.parent;
+MathNode? handleMoveDown(MathNode parent) {
+  MathNode? proposedParent;
+  MathNode? grandParent = parent.parent;
 
   if (grandParent != null) {
-    if (parent is LaTeXNodeWithInitialType &&
-        parent.initialType == LEType.numeratorNode) {
-      proposedParent = (grandParent as LaTeXFractionNode).denominator;
-    } else if (parent is LaTeXNodeWithInitialType &&
-        parent.initialType == LEType.upperLimitNode) {
-      if (grandParent is LaTeXIntegralNode) {
+    if (parent is MathNodeWithInitialType &&
+        parent.initialType == METype.numeratorNode) {
+      proposedParent = (grandParent as MathFractionNode).denominator;
+    } else if (parent is MathNodeWithInitialType &&
+        parent.initialType == METype.upperLimitNode) {
+      if (grandParent is MathIntegralNode) {
         proposedParent = grandParent.lowerLimit;
-      } else if (grandParent is LaTeXSummationNode) {
+      } else if (grandParent is MathSummationNode) {
         proposedParent = grandParent.lowerLimit;
       }
     } else {
@@ -155,19 +155,19 @@ LaTeXNode? handleMoveDown(LaTeXNode parent) {
 }
 
 /// Handles moving the cursor up.
-LaTeXNode? handleMoveUp(LaTeXNode parent) {
-  LaTeXNode? proposedParent;
-  LaTeXNode? grandParent = parent.parent;
+MathNode? handleMoveUp(MathNode parent) {
+  MathNode? proposedParent;
+  MathNode? grandParent = parent.parent;
 
   if (grandParent != null) {
-    if (parent is LaTeXNodeWithInitialType &&
-        parent.initialType == LEType.denominatorNode) {
-      proposedParent = (grandParent as LaTeXFractionNode).numerator;
-    } else if (parent is LaTeXNodeWithInitialType &&
-        parent.initialType == LEType.lowerLimitNode) {
-      if (grandParent is LaTeXIntegralNode) {
+    if (parent is MathNodeWithInitialType &&
+        parent.initialType == METype.denominatorNode) {
+      proposedParent = (grandParent as MathFractionNode).numerator;
+    } else if (parent is MathNodeWithInitialType &&
+        parent.initialType == METype.lowerLimitNode) {
+      if (grandParent is MathIntegralNode) {
         proposedParent = grandParent.upperLimit;
-      } else if (grandParent is LaTeXSummationNode) {
+      } else if (grandParent is MathSummationNode) {
         proposedParent = grandParent.upperLimit;
       }
     } else {

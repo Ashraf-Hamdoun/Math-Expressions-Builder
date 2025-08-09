@@ -1,24 +1,24 @@
-import 'package:math_latex_builder/math_latex_builder.dart';
+import 'package:math_expressions_builder/math_expressions_builder.dart';
 
 void main(List<String> args) {
-  final LaTeXTree tree = LaTeXTree();
+  final MathTree tree = MathTree();
 
-  tree.addChildLeaf(LEType.numberLeaf, "4");
-  tree.addChildLeaf(LEType.operatorLeaf, "+");
-  tree.addChildNode(LEType.fractionNode);
-  tree.addChildLeaf(LEType.numberLeaf, "1");
-  tree.addChildLeaf(LEType.numberLeaf, "5");
-  tree.addChildLeaf(LEType.operatorLeaf, "-");
-  tree.addChildNode(LEType.squareRootNode);
-  tree.addChildLeaf(LEType.numberLeaf, "7");
+  tree.addChildLeaf(METype.numberLeaf, "4");
+  tree.addChildLeaf(METype.operatorLeaf, "+");
+  tree.addChildNode(METype.fractionNode);
+  tree.addChildLeaf(METype.numberLeaf, "1");
+  tree.addChildLeaf(METype.numberLeaf, "5");
+  tree.addChildLeaf(METype.operatorLeaf, "-");
+  tree.addChildNode(METype.squareRootNode);
+  tree.addChildLeaf(METype.numberLeaf, "7");
   tree.moveDown();
-  tree.addChildNode(LEType.nthRootNode);
-  tree.addChildLeaf(LEType.numberLeaf, "9");
+  tree.addChildNode(METype.nthRootNode);
+  tree.addChildLeaf(METype.numberLeaf, "9");
   tree.moveRight();
-  tree.addChildNode(LEType.fractionNode);
-  tree.addChildLeaf(LEType.numberLeaf, "3");
+  tree.addChildNode(METype.fractionNode);
+  tree.addChildLeaf(METype.numberLeaf, "3");
   tree.moveDown();
-  tree.addChildLeaf(LEType.numberLeaf, "8");
+  tree.addChildLeaf(METype.numberLeaf, "8");
 
   print("result : ${tree.toLaTeXString}");
   // 4+\frac{15-\sqrt{7}}{\sqrt[9]{\frac{3}{8|}}}

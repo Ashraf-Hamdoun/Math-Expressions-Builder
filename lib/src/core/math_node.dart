@@ -1,11 +1,12 @@
-import 'package:math_latex_builder/src/constants/directions.dart';
-import 'package:math_latex_builder/src/utiles/handle_move.dart';
-import '../constants/latex_element_type.dart';
+import 'package:math_expressions_builder/src/constants/directions.dart';
+import 'package:math_expressions_builder/src/core/models/expressions.dart';
+import 'package:math_expressions_builder/src/utiles/handle_move.dart';
+import '../constants/math_element_type.dart';
 import '../constants/strings.dart';
-import 'latex_element.dart';
-import 'latex_leaf.dart';
+import 'math_element.dart';
+import 'math_leaf.dart';
 
-/// The base class for all LaTeX nodes.
+/// The base class for all Math nodes.
 ///
 /// Nodes are the building blocks of the LaTeX tree and can have children.
 /// They are responsible for managing their children, their active state, and the
@@ -14,8 +15,8 @@ import 'latex_leaf.dart';
 /// The [_isActive] flag indicates whether the node is currently active, meaning
 /// it is the target for new elements.
 /// The [position] determines where new children are inserted.
-abstract class LaTeXNode extends LaTeXElement {
-  final List<LaTeXElement> _children = [];
+abstract class MathNode extends MathElement {
+  final List<MathElement> _children = [];
   final List<String> _childrenIDs = [];
   bool _isActive = false;
 
@@ -25,36 +26,37 @@ abstract class LaTeXNode extends LaTeXElement {
   /// The position of the cursor, used for inserting new children.
   int position = 0;
 
-  LaTeXNode({
+  MathNode({
     required super.id,
     required super.parent,
     required this.updateParent,
   }) {
-    LaTeXLeaf placeHolderLeaf = LaTeXLeaf.placeHolder(parent: this);
+    MathLeaf placeHolderLeaf = MathLeaf.placeHolder(parent: this);
     _children.add(placeHolderLeaf);
     _childrenIDs.add(placeHolderLeaf.id);
   }
 
   /// Returns an unmodifiable list of the node's children.
-  List<LaTeXElement> get children => List.unmodifiable(_children);
+  List<MathElement> get children => List.unmodifiable(_children);
 
   /// Returns an unmodifiable list of the IDs of the node's children.
   List<String> get childrenIDs => List.unmodifiable(_childrenIDs);
 
   @override
-  String get getType => LEType.node.name;
+  String get getType => METype.node.name;
 
   @override
-  String computeLaTeXString() {
+  Expressions computeExpressions() {
     if (_children.length == 1) {
-      return (_isActive) ? markOfInsertPoint : "\\square";
+      return Expressions(
+          latex: (_isActive) ? markOfInsertPoint : "\\square", dart: "");
     } else {
       List<String> parts =
           _children.map((child) => child.toLaTeXString()).toList();
       if (_isActive) {
         parts.insert(position + 1, '|');
       }
-      return parts.join();
+      return Expressions(latex: parts.join(), dart: "");
     }
   }
 
@@ -65,13 +67,13 @@ abstract class LaTeXNode extends LaTeXElement {
   }
 
   /// Adds a child to the node at the current position.
-  void _addInsertChildToLists(LaTeXElement child) {
+  void _addInsertChildToLists(MathElement child) {
     _children.insert(position + 1, child);
     _childrenIDs.insert(position + 1, child.id);
   }
 
   /// Adds a leaf to the node and updates the cursor position.
-  void addChildLeaf(LaTeXLeaf leaf) {
+  void addChildLeaf(MathLeaf leaf) {
     _addInsertChildToLists(leaf);
 
     position += 1;
@@ -80,7 +82,7 @@ abstract class LaTeXNode extends LaTeXElement {
   }
 
   /// Adds a node to the node and updates the cursor position.
-  void addChildNode(LaTeXNode node) {
+  void addChildNode(MathNode node) {
     _addInsertChildToLists(node);
 
     position += 1;
@@ -105,7 +107,7 @@ abstract class LaTeXNode extends LaTeXElement {
   /// Moves the cursor in the specified direction.
   ///
   /// Returns the new active node after the move.
-  LaTeXNode move(Direction direction) {
+  MathNode move(Direction direction) {
     return handleMove(direction, this) ?? this;
   }
 
@@ -114,15 +116,15 @@ abstract class LaTeXNode extends LaTeXElement {
     _children.clear();
     _childrenIDs.clear();
 
-    LaTeXLeaf placeHolderLeaf = LaTeXLeaf.placeHolder(parent: this);
+    MathLeaf placeHolderLeaf = MathLeaf.placeHolder(parent: this);
     _children.add(placeHolderLeaf);
     _childrenIDs.add(placeHolderLeaf.id);
   }
 
   // Delete the active child and update the cursor position.
-  LaTeXNode? deleteActiveChild() {
+  MathNode? deleteActiveChild() {
     if (position > 0 && children.length > 1) {
-      LaTeXElement activeChild = children[position];
+      MathElement activeChild = children[position];
       // Delete the active child
       _children.remove(activeChild);
       _childrenIDs.remove(activeChild.id);

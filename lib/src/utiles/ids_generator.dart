@@ -1,4 +1,4 @@
-import 'package:math_latex_builder/src/constants/latex_element_type.dart';
+import 'package:math_expressions_builder/src/constants/math_element_type.dart';
 
 int idsCounter = 0;
 
@@ -6,59 +6,59 @@ int idsCounter = 0;
 ///
 /// The ID is based on the element's type and its parent's ID to ensure that it
 /// is unique within the tree.
-String idsGenerator(LEType type, String parentId) {
+String idsGenerator(METype type, String parentId) {
   String idPrefix;
 
   switch (type) {
-    case LEType.trunk:
+    case METype.trunk:
       idPrefix = "t";
       break;
-    case LEType.node:
+    case METype.node:
       idPrefix = "$parentId-n-norm";
       break;
-    case LEType.fractionNode:
+    case METype.fractionNode:
       idPrefix = "$parentId-n-frac";
       break;
-    case LEType.numeratorNode:
+    case METype.numeratorNode:
       idPrefix = "$parentId-n-num";
       break;
-    case LEType.denominatorNode:
+    case METype.denominatorNode:
       idPrefix = "$parentId-n-den";
       break;
-    case LEType.squareRootNode:
+    case METype.squareRootNode:
       idPrefix = "$parentId-n-sqrt";
       break;
-    case LEType.cubeRootNode:
+    case METype.cubeRootNode:
       idPrefix = "$parentId-n-cbrt";
       break;
-    case LEType.nthRootNode:
+    case METype.nthRootNode:
       idPrefix = "$parentId-n-nthrt";
       break;
-    case LEType.indexOfRootNode:
+    case METype.indexOfRootNode:
       idPrefix = "$parentId-n-idxrt";
       break;
-    case LEType.radicandNode:
+    case METype.radicandNode:
       idPrefix = "$parentId-n-radicand";
       break;
-    case LEType.powerNode:
+    case METype.powerNode:
       idPrefix = "$parentId-n-pow";
       break;
-    case LEType.integralNode:
+    case METype.integralNode:
       idPrefix = "$parentId-n-int";
       break;
-    case LEType.summationNode:
+    case METype.summationNode:
       idPrefix = "$parentId-n-sum";
       break;
-    case LEType.numberLeaf:
+    case METype.numberLeaf:
       idPrefix = "$parentId-l-num";
       break;
-    case LEType.operatorLeaf:
+    case METype.operatorLeaf:
       idPrefix = "$parentId-l-oper";
       break;
-    case LEType.variableLeaf:
+    case METype.variableLeaf:
       idPrefix = "$parentId-l-var";
       break;
-    case LEType.leaf:
+    case METype.leaf:
       idPrefix = "$parentId-l-ess";
       break;
     default:

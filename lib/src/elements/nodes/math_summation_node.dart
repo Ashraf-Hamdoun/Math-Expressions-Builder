@@ -1,57 +1,53 @@
-import 'package:math_latex_builder/src/constants/directions.dart';
+import 'package:math_expressions_builder/src/constants/directions.dart';
+import 'package:math_expressions_builder/src/constants/math_element_type.dart';
+import 'package:math_expressions_builder/src/core/math_node.dart';
+import 'package:math_expressions_builder/src/core/models/expressions.dart';
+import 'package:math_expressions_builder/src/elements/nodes/math_node_with_initial_type.dart';
+import 'package:math_expressions_builder/src/utiles/ids_generator.dart';
 
-import 'package:math_latex_builder/src/constants/latex_element_type.dart';
+/// A node that represents a summation.
+///
+/// It contains three children: a lower limit, an upper limit, and the summand (expression).
+class MathSummationNode extends MathNode {
+  late final MathNode lowerLimit;
 
-import 'package:math_latex_builder/src/core/latex_node.dart';
+  late final MathNode upperLimit;
 
-import 'package:math_latex_builder/src/elements/nodes/latex_node_with_initial_type.dart';
+  late final MathNode summand;
 
-import 'package:math_latex_builder/src/utiles/ids_generator.dart';
-
-/// A node that represents a definite integral.
-
-/// It contains three children: a lower limit, an upper limit, and the integrand (function).
-
-class LaTeXIntegralNode extends LaTeXNode {
-  late final LaTeXNode lowerLimit;
-
-  late final LaTeXNode upperLimit;
-
-  late final LaTeXNode integrand;
-
-  LaTeXIntegralNode({
+  MathSummationNode({
     required super.id,
     required super.parent,
     required super.updateParent,
   }) {
     // Initialize the lower limit child node
 
-    lowerLimit = LaTeXNodeWithInitialType(
-      id: idsGenerator(LEType.lowerLimitNode, id),
+    lowerLimit = MathNodeWithInitialType(
+      id: idsGenerator(METype.lowerLimitNode, id),
       parent: this,
       updateParent: (childId, childValue) =>
           onUpdateChildren(childId, childValue),
-      initialType: LEType.lowerLimitNode,
+      initialType: METype.lowerLimitNode,
     );
 
     // Initialize the upper limit child node
 
-    upperLimit = LaTeXNodeWithInitialType(
-      id: idsGenerator(LEType.upperLimitNode, id),
+    upperLimit = MathNodeWithInitialType(
+      id: idsGenerator(METype.upperLimitNode, id),
       parent: this,
       updateParent: (childId, childValue) =>
           onUpdateChildren(childId, childValue),
-      initialType: LEType.upperLimitNode,
+      initialType: METype.upperLimitNode,
     );
 
-    // Initialize the integrand (function) child node
+    // Initialize the summand (function) child node
 
-    integrand = LaTeXNodeWithInitialType(
-      id: idsGenerator(LEType.integrandNode, id),
+    summand = MathNodeWithInitialType(
+      id: idsGenerator(METype.summandNode, id),
       parent: this,
       updateParent: (childId, childValue) =>
           onUpdateChildren(childId, childValue),
-      initialType: LEType.integrandNode,
+      initialType: METype.summandNode,
     );
 
     // Add the children to the integral node
@@ -60,7 +56,7 @@ class LaTeXIntegralNode extends LaTeXNode {
 
     addChildNode(upperLimit);
 
-    addChildNode(integrand);
+    addChildNode(summand);
 
     // Set the initial position to start in the lower limit
 
@@ -68,25 +64,24 @@ class LaTeXIntegralNode extends LaTeXNode {
   }
 
   @override
-  String get getType => LEType.integralNode.name;
+  String get getType => METype.summationNode.name;
 
   @override
-  String computeLaTeXString() {
+  Expressions computeExpressions() {
     // Returns the full LaTeX string for the integral, including
 
-    // the lower limit, upper limit, and the integrand.
-
+    // the lower limit, upper limit, and the summand.
     // The \int command is prefixed, and the limits are in a subscript and superscript.
-
     // We add a small space `\,` before a placeholder differential 'dx' for clarity,
-
     // which is a standard practice in LaTeX.
-
-    return "\\int_{${lowerLimit.computeLaTeXString()}}^{${upperLimit.computeLaTeXString()}}${integrand.computeLaTeXString()}";
+    return Expressions(
+        latex:
+            "\\sum_{${lowerLimit.computeExpressions().latex}}^{${upperLimit.computeExpressions().latex}}${summand.computeExpressions().latex}",
+        dart: 'summation');
   }
 
   @override
-  LaTeXNode move(Direction direction) {
+  MathNode move(Direction direction) {
     if (direction == Direction.left) {
       // Logic for moving left
 
@@ -109,7 +104,7 @@ class LaTeXIntegralNode extends LaTeXNode {
       if (position != 3) {
         position = 3;
 
-        return integrand;
+        return summand;
       } else {
         // Move out of the integral node to the right
 
@@ -121,8 +116,8 @@ class LaTeXIntegralNode extends LaTeXNode {
   }
 
   @override
-  LaTeXNode? deleteActiveChild() {
-    LaTeXNode activeChild = children[position] as LaTeXNode;
+  MathNode? deleteActiveChild() {
+    MathNode activeChild = children[position] as MathNode;
 
     // If the active child is not empty, handle the deletion within the child.
 
@@ -136,7 +131,7 @@ class LaTeXIntegralNode extends LaTeXNode {
 
     if (lowerLimit.children.isEmpty &&
         upperLimit.children.isEmpty &&
-        integrand.children.isEmpty) {
+        summand.children.isEmpty) {
       // All children are empty, so we can delete the integral node itself.
 
       parent!.deleteActiveChild();

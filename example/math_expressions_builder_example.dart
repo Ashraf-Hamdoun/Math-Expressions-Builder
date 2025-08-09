@@ -1,31 +1,31 @@
-import 'package:math_latex_builder/math_latex_builder.dart';
+import 'package:math_expressions_builder/math_expressions_builder.dart';
 
 void main(List<String> args) {
-  final LaTeXTree tree = LaTeXTree();
+  final MathTree tree = MathTree();
 
   print("\n--- Example 1: Complex Fraction with Powers and Roots ---\n");
   // Start building the expression: y
-  tree.addChildLeaf(LEType.variableLeaf, "y");
+  tree.addChildLeaf(METype.variableLeaf, "y");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y|
 
   // Add the equals sign: y =
-  tree.addChildLeaf(LEType.operatorLeaf, "=");
+  tree.addChildLeaf(METype.operatorLeaf, "=");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=
 
   // Add the number 1: y = 1
-  tree.addChildLeaf(LEType.numberLeaf, "1");
+  tree.addChildLeaf(METype.numberLeaf, "1");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1|
 
   // Add the minus sign: y = 1 -
-  tree.addChildLeaf(LEType.operatorLeaf, "-");
+  tree.addChildLeaf(METype.operatorLeaf, "-");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-|
 
   // Add the main fraction node. The cursor automatically moves into its numerator.
-  tree.addChildNode(LEType.fractionNode);
+  tree.addChildNode(METype.fractionNode);
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{ |}{\\square}
 
@@ -33,17 +33,17 @@ void main(List<String> args) {
   // Target: f^n[frac{s.1}{f}+(frac{15-sqrt{7}}{f})^w]
 
   // Add variable 'f': f
-  tree.addChildLeaf(LEType.variableLeaf, "f");
+  tree.addChildLeaf(METype.variableLeaf, "f");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f|}{\\square}
 
   // Add a power node for 'n'. Cursor moves into the power.
-  tree.addChildNode(LEType.powerNode);
+  tree.addChildNode(METype.powerNode);
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{|}}{\\square}
 
   // Add variable 'n' to the power.
-  tree.addChildLeaf(LEType.variableLeaf, "n");
+  tree.addChildLeaf(METype.variableLeaf, "n");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n|}{\\square}
 
@@ -53,20 +53,20 @@ void main(List<String> args) {
   // Output: y=1-\\frac{f^{n}|}{\\square}
 
   // Add opening bracket: [
-  tree.addChildLeaf(LEType.symbolLeaf, "[");
+  tree.addChildLeaf(METype.symbolLeaf, "[");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[|]}{\\square}
 
   // Add inner fraction node. Cursor moves into its numerator.
   // Target: frac{s.1}{f}
-  tree.addChildNode(LEType.fractionNode);
+  tree.addChildNode(METype.fractionNode);
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[\\frac{ |}{\\square}]}{\\square}
 
   // Numerator of inner fraction: s.1
-  tree.addChildLeaf(LEType.variableLeaf, "s");
-  tree.addChildLeaf(LEType.symbolLeaf, ".");
-  tree.addChildLeaf(LEType.numberLeaf, "1");
+  tree.addChildLeaf(METype.variableLeaf, "s");
+  tree.addChildLeaf(METype.symbolLeaf, ".");
+  tree.addChildLeaf(METype.numberLeaf, "1");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[\\frac{s.1|}{\\square}]}{\\square}
 
@@ -76,7 +76,7 @@ void main(List<String> args) {
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{\\square|}]}{\\square}
 
   // Denominator of inner fraction: f
-  tree.addChildLeaf(LEType.variableLeaf, "f");
+  tree.addChildLeaf(METype.variableLeaf, "f");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f|}]}{\\square}
 
@@ -86,28 +86,28 @@ void main(List<String> args) {
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}|]}{\\square}
 
   // Add plus operator: +
-  tree.addChildLeaf(LEType.operatorLeaf, "+");
+  tree.addChildLeaf(METype.operatorLeaf, "+");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+|]}{\\square}
 
   // Add opening parenthesis: (
-  tree.addChildLeaf(LEType.symbolLeaf, "(");
+  tree.addChildLeaf(METype.symbolLeaf, "(");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+(\\frac{ |}{\\square})]}{\\square}
 
   // Add another fraction node. Cursor moves into its numerator.
   // Target: frac{15-sqrt{7}}{f}
-  tree.addChildNode(LEType.fractionNode);
+  tree.addChildNode(METype.fractionNode);
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+(\\frac{ |}{\\square})]}{\\square}
 
   // Numerator of this fraction: 15-sqrt{7}
-  tree.addChildLeaf(LEType.numberLeaf, "1");
-  tree.addChildLeaf(LEType.numberLeaf, "5");
-  tree.addChildLeaf(LEType.operatorLeaf, "-");
+  tree.addChildLeaf(METype.numberLeaf, "1");
+  tree.addChildLeaf(METype.numberLeaf, "5");
+  tree.addChildLeaf(METype.operatorLeaf, "-");
   tree.addChildNode(
-      LEType.squareRootNode); // Cursor moves into the square root.
-  tree.addChildLeaf(LEType.numberLeaf, "7");
+      METype.squareRootNode); // Cursor moves into the square root.
+  tree.addChildLeaf(METype.numberLeaf, "7");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+(\\frac{15-\\sqrt{7|} }{\\square})]}{\\square}
 
@@ -122,7 +122,7 @@ void main(List<String> args) {
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+(\\frac{15-\\sqrt{7}}{ |})]}{\\square}
 
   // Denominator of this fraction: f
-  tree.addChildLeaf(LEType.variableLeaf, "f");
+  tree.addChildLeaf(METype.variableLeaf, "f");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+(\\frac{15-\\sqrt{7}}{f|})]}{\\square}
 
@@ -132,13 +132,13 @@ void main(List<String> args) {
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+(\\frac{15-\\sqrt{7}}{f})|]}{\\square}
 
   // Add closing parenthesis: )
-  tree.addChildLeaf(LEType.symbolLeaf, ")");
+  tree.addChildLeaf(METype.symbolLeaf, ")");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+(\\frac{15-\\sqrt{7}}{f})|]}{\\square}
 
   // Add a power node for 'w' to the last fraction in the numerator
-  tree.addChildNode(LEType.powerNode);
-  tree.addChildLeaf(LEType.variableLeaf, "w");
+  tree.addChildNode(METype.powerNode);
+  tree.addChildLeaf(METype.variableLeaf, "w");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+(\\frac{15-\\sqrt{7}}{f})^{w}|]}{\\square}
 
@@ -151,8 +151,8 @@ void main(List<String> args) {
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+(\\frac{15-\\sqrt{7}}{f})^{w}]}{|}
 
   // Add a root node with index 9
-  tree.addChildNode(LEType.nthRootNode);
-  tree.addChildLeaf(LEType.numberLeaf, "9");
+  tree.addChildNode(METype.nthRootNode);
+  tree.addChildLeaf(METype.numberLeaf, "9");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+(\\frac{15-\\sqrt{7}}{f})^{w}]}{\\sqrt[9]{|}}
 
@@ -160,10 +160,10 @@ void main(List<String> args) {
   tree.moveRight();
 
   // Add a fraction inside the root
-  tree.addChildNode(LEType.fractionNode);
-  tree.addChildLeaf(LEType.numberLeaf, "3");
+  tree.addChildNode(METype.fractionNode);
+  tree.addChildLeaf(METype.numberLeaf, "3");
   tree.moveDown();
-  tree.addChildLeaf(LEType.numberLeaf, "8");
+  tree.addChildLeaf(METype.numberLeaf, "8");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+(\\frac{15-\\sqrt{7}}{f})^{w}]}{\\sqrt[9]{\\frac{3}{8}|}}
 
@@ -172,8 +172,8 @@ void main(List<String> args) {
   tree.moveRight();
 
   // Add a power node for 'n' to the root
-  tree.addChildNode(LEType.powerNode);
-  tree.addChildLeaf(LEType.variableLeaf, "n");
+  tree.addChildNode(METype.powerNode);
+  tree.addChildLeaf(METype.variableLeaf, "n");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+(\\frac{15-\\sqrt{7}}{f})^{w}]}{(\\sqrt[9]{\\frac{3}{8}})^{n}|}
 
@@ -187,67 +187,67 @@ void main(List<String> args) {
   tree.clear();
 
   // Build: \int_{a}^{b}x^{2}\,\sin(x)dx+C
-  tree.addChildNode(LEType.integralNode);
+  tree.addChildNode(METype.integralNode);
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \int_{|}^{\square}\square
 
   // Lower limit: a
-  tree.addChildLeaf(LEType.variableLeaf, "a");
+  tree.addChildLeaf(METype.variableLeaf, "a");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \int_{a|}^{\square}\square
 
   tree.moveUp();
   // Upper limit: b
-  tree.addChildLeaf(LEType.variableLeaf, "b");
+  tree.addChildLeaf(METype.variableLeaf, "b");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \int_{a}^{b|}\square
 
   tree.moveRight();
   // Integrand: x
-  tree.addChildLeaf(LEType.variableLeaf, "x");
+  tree.addChildLeaf(METype.variableLeaf, "x");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \int_{a}^{b}x|
 
   // Add power node for 2
-  tree.addChildNode(LEType.powerNode);
+  tree.addChildNode(METype.powerNode);
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \int_{a}^{b}x^{|}
 
-  tree.addChildLeaf(LEType.numberLeaf, "2");
+  tree.addChildLeaf(METype.numberLeaf, "2");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \int_{a}^{b}x^{2|}
 
   tree.moveRight();
   // Add multiplication (optional)
-  tree.addChildLeaf(LEType.specialSymbolLeaf, ",");
+  tree.addChildLeaf(METype.specialSymbolLeaf, ",");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \int_{a}^{b}x^{2}\,|
 
   // Add sin(x)
-  tree.addChildNode(LEType.functionNode, content: "sin");
+  tree.addChildNode(METype.functionNode, content: "sin");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \int_{a}^{b}x^{2}\,\sin(|)
 
-  tree.addChildLeaf(LEType.variableLeaf, "x");
+  tree.addChildLeaf(METype.variableLeaf, "x");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \int_{a}^{b}x^{2}\,\sin(x|)
 
   tree.moveRight();
   // Add dx
-  tree.addChildLeaf(LEType.variableLeaf, "d");
+  tree.addChildLeaf(METype.variableLeaf, "d");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \int_{a}^{b}x^{2}\,\sin(x)d|
 
-  tree.addChildLeaf(LEType.variableLeaf, "x");
+  tree.addChildLeaf(METype.variableLeaf, "x");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \int_{a}^{b}x^{2}\,\sin(x)dx|
 
   // Move cursor to the end of the integrand to add a constant of integration (e.g., +C)
-  tree.addChildLeaf(LEType.operatorLeaf, "+");
+  tree.addChildLeaf(METype.operatorLeaf, "+");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \int_{a}^{b}x^{2}\,\sin(x)dx+|
 
-  tree.addChildLeaf(LEType.variableLeaf, "C");
+  tree.addChildLeaf(METype.variableLeaf, "C");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \int_{a}^{b}x^{2}\,\sin(x)dx+C|
 
@@ -261,69 +261,69 @@ void main(List<String> args) {
   tree.clear();
 
   // Build: \sum_{i=1}^{n}(2i+1)^{2}+k|
-  tree.addChildNode(LEType.summationNode);
+  tree.addChildNode(METype.summationNode);
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{|}^{\square}\square
 
   // Lower limit: i
-  tree.addChildLeaf(LEType.variableLeaf, "i");
+  tree.addChildLeaf(METype.variableLeaf, "i");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i|}^{\square}\square
 
-  tree.addChildLeaf(LEType.operatorLeaf, "=");
+  tree.addChildLeaf(METype.operatorLeaf, "=");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i=|}^{\square}\square
 
-  tree.addChildLeaf(LEType.numberLeaf, "1");
+  tree.addChildLeaf(METype.numberLeaf, "1");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i=1|}^{\square}\square
 
   tree.moveUp();
   // Upper limit: n
-  tree.addChildLeaf(LEType.variableLeaf, "n");
+  tree.addChildLeaf(METype.variableLeaf, "n");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i=1}^{n|}\square
 
   tree.moveRight();
   // Summand: (
-  tree.addChildLeaf(LEType.symbolLeaf, "(");
+  tree.addChildLeaf(METype.symbolLeaf, "(");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i=1}^{n}(|
 
-  tree.addChildLeaf(LEType.numberLeaf, "2");
+  tree.addChildLeaf(METype.numberLeaf, "2");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i=1}^{n}(2|
 
-  tree.addChildLeaf(LEType.variableLeaf, "i");
+  tree.addChildLeaf(METype.variableLeaf, "i");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i=1}^{n}(2i|
 
-  tree.addChildLeaf(LEType.operatorLeaf, "+");
+  tree.addChildLeaf(METype.operatorLeaf, "+");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i=1}^{n}(2i+|
 
-  tree.addChildLeaf(LEType.numberLeaf, "1");
+  tree.addChildLeaf(METype.numberLeaf, "1");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i=1}^{n}(2i+1|
 
-  tree.addChildLeaf(LEType.symbolLeaf, ")");
+  tree.addChildLeaf(METype.symbolLeaf, ")");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i=1}^{n}(2i+1)|
 
-  tree.addChildNode(LEType.powerNode);
+  tree.addChildNode(METype.powerNode);
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i=1}^{n}(2i+1)^{|}
 
-  tree.addChildLeaf(LEType.numberLeaf, "2");
+  tree.addChildLeaf(METype.numberLeaf, "2");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i=1}^{n}(2i+1)^{2|}
 
   // Add an operator and a variable to complete the summand (e.g., +k)
-  tree.addChildLeaf(LEType.operatorLeaf, "+");
+  tree.addChildLeaf(METype.operatorLeaf, "+");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i=1}^{n}(2i+1)^{2}+|
 
-  tree.addChildLeaf(LEType.variableLeaf, "k");
+  tree.addChildLeaf(METype.variableLeaf, "k");
   print("Current LaTeX: ${tree.toLaTeXString}");
   // Output: \sum_{i=1}^{n}(2i+1)^{2}+k|
 

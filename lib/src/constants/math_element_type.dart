@@ -1,7 +1,7 @@
 /// The type of a LaTeX element.
 ///
 /// User-facing types are marked below. Internal types are for package use only.
-enum LEType {
+enum METype {
   // Internal types (not for direct user use)
   trunk,
   node,
@@ -36,23 +36,23 @@ enum LEType {
   textLeaf,
 }
 
-extension LETypeUserFacing on LEType {
+extension METypeUserFacing on METype {
   /// Returns true if this type is intended for user code.
   bool get isUserFacing => const {
-        LEType.functionNode,
-        LEType.inverseFunctionNode,
-        LEType.fractionNode,
-        LEType.squareRootNode,
-        LEType.cubeRootNode,
-        LEType.nthRootNode,
-        LEType.powerNode,
-        LEType.integralNode,
-        LEType.summationNode,
-        LEType.numberLeaf,
-        LEType.operatorLeaf,
-        LEType.variableLeaf,
-        LEType.symbolLeaf,
-        LEType.specialSymbolLeaf,
-        LEType.textLeaf,
+        METype.functionNode,
+        METype.inverseFunctionNode,
+        METype.fractionNode,
+        METype.squareRootNode,
+        METype.cubeRootNode,
+        METype.nthRootNode,
+        METype.powerNode,
+        METype.integralNode,
+        METype.summationNode,
+        METype.numberLeaf,
+        METype.operatorLeaf,
+        METype.variableLeaf,
+        METype.symbolLeaf,
+        METype.specialSymbolLeaf,
+        METype.textLeaf,
       }.contains(this);
 }

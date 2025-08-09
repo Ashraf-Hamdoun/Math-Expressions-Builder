@@ -1,36 +1,36 @@
-import 'package:math_latex_builder/src/constants/directions.dart';
-import 'package:math_latex_builder/src/constants/latex_element_type.dart';
-import 'package:math_latex_builder/src/core/latex_leaf.dart';
-import 'package:math_latex_builder/src/core/latex_node.dart';
-import 'package:math_latex_builder/src/elements/latex_trunk.dart';
-import 'package:math_latex_builder/src/elements/nodes/latex_fraction_node.dart';
-import 'package:math_latex_builder/src/elements/nodes/latex_integral_node.dart';
-import 'package:math_latex_builder/src/elements/nodes/latex_nth_root_node.dart';
-import 'package:math_latex_builder/src/elements/nodes/latex_summation_node.dart';
-import 'package:math_latex_builder/src/utiles/leaves_generator.dart';
-import 'package:math_latex_builder/src/utiles/nodes_generator.dart';
+import 'package:math_expressions_builder/src/constants/directions.dart';
+import 'package:math_expressions_builder/src/constants/math_element_type.dart';
+import 'package:math_expressions_builder/src/core/math_leaf.dart';
+import 'package:math_expressions_builder/src/core/math_node.dart';
+import 'package:math_expressions_builder/src/elements/math_trunk.dart';
+import 'package:math_expressions_builder/src/elements/nodes/math_fraction_node.dart';
+import 'package:math_expressions_builder/src/elements/nodes/math_integral_node.dart';
+import 'package:math_expressions_builder/src/elements/nodes/math_nth_root_node.dart';
+import 'package:math_expressions_builder/src/elements/nodes/math_summation_node.dart';
+import 'package:math_expressions_builder/src/utiles/leaves_generator.dart';
+import 'package:math_expressions_builder/src/utiles/nodes_generator.dart';
 
-/// The main class for building LaTeX expressions.
+/// The main class for building Math expressions.
 ///
-/// This class provides a simple interface for creating and manipulating LaTeX
+/// This class provides a simple interface for creating and manipulating Math
 /// expressions. It manages the underlying tree structure and the active node,
 /// making it easy to add new elements and move the cursor.
-class LaTeXTree {
-  final LaTeXTrunk _trunk = LaTeXTrunk(id: "t-0");
-  late LaTeXNode _activeParent;
+class MathTree {
+  final MathTrunk _trunk = MathTrunk(id: "t-0");
+  late MathNode _activeParent;
 
-  LaTeXTree() {
+  MathTree() {
     _trunk.clear();
     _activeParent = _trunk;
     _trunk.enterNode();
   }
 
   /// Returns the LaTeX string for the entire expression.
-  String toLaTeXString() => "\\(${_trunk.computeLaTeXString()}\\)";
+  String toLaTeXString() => _trunk.toLaTeXString();
 
   /// Adds a leaf to the active node.
-  void addChildLeaf(LEType type, String content) {
-    LaTeXLeaf leaf = leavesGenerator(
+  void addChildLeaf(METype type, String content) {
+    MathLeaf leaf = leavesGenerator(
       parent: _activeParent,
       type: type,
       content: content,
@@ -40,8 +40,8 @@ class LaTeXTree {
   }
 
   /// Adds a node to the active node and enters it.
-  void addChildNode(LEType type, {String content = ""}) {
-    LaTeXNode node = nodesGenerator(
+  void addChildNode(METype type, {String content = ""}) {
+    MathNode node = nodesGenerator(
       parent: _activeParent,
       type: type,
       content: content,
@@ -49,13 +49,13 @@ class LaTeXTree {
 
     _activeParent.addChildNode(node);
     _activeParent.leaveNode();
-    if (node is LaTeXFractionNode) {
+    if (node is MathFractionNode) {
       _activeParent = node.numerator;
-    } else if (node is LaTeXNthRootNode) {
+    } else if (node is MathNthRootNode) {
       _activeParent = node.indexOfRoot;
-    } else if (node is LaTeXIntegralNode) {
+    } else if (node is MathIntegralNode) {
       _activeParent = node.lowerLimit;
-    } else if (node is LaTeXSummationNode) {
+    } else if (node is MathSummationNode) {
       _activeParent = node.lowerLimit;
     } else {
       _activeParent = node;
@@ -85,7 +85,7 @@ class LaTeXTree {
 
   /// Deletes the active child and updates the cursor position.
   void delete() {
-    LaTeXNode? node = _activeParent.deleteActiveChild();
+    MathNode? node = _activeParent.deleteActiveChild();
     if (node != null) {
       // Parent will be changed!
       _activeParent.leaveNode();

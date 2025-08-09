@@ -1,77 +1,77 @@
-import 'package:math_latex_builder/src/constants/latex_element_type.dart';
-import 'package:math_latex_builder/src/core/latex_leaf.dart';
-import 'package:math_latex_builder/src/core/latex_node.dart';
-import 'package:math_latex_builder/src/elements/leaves/latex_number_leaf.dart';
-import 'package:math_latex_builder/src/elements/leaves/latex_operator_leaf.dart';
-import 'package:math_latex_builder/src/elements/leaves/latex_special_symbol_leaf.dart';
-import 'package:math_latex_builder/src/elements/leaves/latex_symbol_leaf.dart';
-import 'package:math_latex_builder/src/elements/leaves/latex_text_leaf.dart';
-import 'package:math_latex_builder/src/elements/leaves/latex_variable_leaf.dart';
-import 'package:math_latex_builder/src/utiles/ids_generator.dart';
+import 'package:math_expressions_builder/src/constants/math_element_type.dart';
+import 'package:math_expressions_builder/src/core/math_leaf.dart';
+import 'package:math_expressions_builder/src/core/math_node.dart';
+import 'package:math_expressions_builder/src/elements/leaves/math_number_leaf.dart';
+import 'package:math_expressions_builder/src/elements/leaves/math_operator_leaf.dart';
+import 'package:math_expressions_builder/src/elements/leaves/math_special_symbol_leaf.dart';
+import 'package:math_expressions_builder/src/elements/leaves/math_symbol_leaf.dart';
+import 'package:math_expressions_builder/src/elements/leaves/math_text_leaf.dart';
+import 'package:math_expressions_builder/src/elements/leaves/math_variable_leaf.dart';
+import 'package:math_expressions_builder/src/utiles/ids_generator.dart';
 
 /// A factory for creating LaTeX leaf elements.
 ///
 /// This function is responsible for creating the correct type of leaf based on
-/// the provided [LEType].
-LaTeXLeaf leavesGenerator({
-  required LaTeXNode parent,
-  required LEType type,
+/// the provided [METype].
+MathLeaf leavesGenerator({
+  required MathNode parent,
+  required METype type,
   required String content,
 }) {
-  LaTeXLeaf leaf;
+  MathLeaf leaf;
   switch (type) {
-    case LEType.numberLeaf:
-      leaf = LaTeXNumberLeaf(
+    case METype.numberLeaf:
+      leaf = MathNumberLeaf(
         child: content,
-        id: idsGenerator(LEType.numberLeaf, parent.id),
+        id: idsGenerator(METype.numberLeaf, parent.id),
         parent: parent,
       );
       break;
 
-    case LEType.operatorLeaf:
-      leaf = LaTeXOperatorLeaf(
+    case METype.operatorLeaf:
+      leaf = MathOperatorLeaf(
         child: content,
-        id: idsGenerator(LEType.operatorLeaf, parent.id),
+        id: idsGenerator(METype.operatorLeaf, parent.id),
         parent: parent,
       );
       break;
 
-    case LEType.variableLeaf:
-      leaf = LaTeXVariableLeaf(
+    case METype.variableLeaf:
+      leaf = MathVariableLeaf(
         child: content,
-        id: idsGenerator(LEType.operatorLeaf, parent.id),
+        id: idsGenerator(METype.operatorLeaf, parent.id),
         parent: parent,
       );
       break;
 
-    case LEType.symbolLeaf:
-      leaf = LaTeXSymbolLeaf(
+    case METype.symbolLeaf:
+      leaf = MathSymbolLeaf(
         child: content,
-        id: idsGenerator(LEType.symbolLeaf, parent.id),
+        id: idsGenerator(METype.symbolLeaf, parent.id),
         parent: parent,
       );
       break;
 
-    case LEType.specialSymbolLeaf:
-      leaf = LaTeXSpecialSymbolLeaf(
+    case METype.specialSymbolLeaf:
+      leaf = MathSpecialSymbolLeaf(
         child: content,
-        id: idsGenerator(LEType.specialSymbolLeaf, parent.id),
+        id: idsGenerator(METype.specialSymbolLeaf, parent.id),
         parent: parent,
       );
       break;
 
-    case LEType.textLeaf:
-      leaf = LaTeXTextLeaf(
+    case METype.textLeaf:
+      leaf = MathTextLeaf(
         child: content,
-        id: idsGenerator(LEType.textLeaf, parent.id),
+        id: idsGenerator(METype.textLeaf, parent.id),
         parent: parent,
       );
       break;
 
     default:
-      leaf = LaTeXNumberLeaf(
+      leaf = MathNumberLeaf(
         child: content,
-        id: idsGenerator(LEType.leaf, parent.id),
+        id: idsGenerator(METype.leaf, parent.id),
         parent: parent,
       );
   }

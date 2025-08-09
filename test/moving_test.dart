@@ -1,27 +1,27 @@
-import 'package:math_latex_builder/math_latex_builder.dart';
+import 'package:math_expressions_builder/math_expressions_builder.dart';
 import 'package:test/test.dart';
 
 void main() {
   group("Movig between nodes", () {
     test("should move correctly", () {
-      final LaTeXTree tree = LaTeXTree();
+      final MathTree tree = MathTree();
 
-      tree.addChildLeaf(LEType.numberLeaf, "4");
-      tree.addChildLeaf(LEType.operatorLeaf, "+");
-      tree.addChildNode(LEType.fractionNode);
-      tree.addChildLeaf(LEType.numberLeaf, "1");
-      tree.addChildLeaf(LEType.numberLeaf, "5");
-      tree.addChildLeaf(LEType.operatorLeaf, "-");
-      tree.addChildNode(LEType.squareRootNode);
-      tree.addChildLeaf(LEType.numberLeaf, "7");
+      tree.addChildLeaf(METype.numberLeaf, "4");
+      tree.addChildLeaf(METype.operatorLeaf, "+");
+      tree.addChildNode(METype.fractionNode);
+      tree.addChildLeaf(METype.numberLeaf, "1");
+      tree.addChildLeaf(METype.numberLeaf, "5");
+      tree.addChildLeaf(METype.operatorLeaf, "-");
+      tree.addChildNode(METype.squareRootNode);
+      tree.addChildLeaf(METype.numberLeaf, "7");
       tree.moveDown();
-      tree.addChildNode(LEType.nthRootNode);
-      tree.addChildLeaf(LEType.numberLeaf, "9");
+      tree.addChildNode(METype.nthRootNode);
+      tree.addChildLeaf(METype.numberLeaf, "9");
       tree.moveRight();
-      tree.addChildNode(LEType.fractionNode);
-      tree.addChildLeaf(LEType.numberLeaf, "3");
+      tree.addChildNode(METype.fractionNode);
+      tree.addChildLeaf(METype.numberLeaf, "3");
       tree.moveDown();
-      tree.addChildLeaf(LEType.numberLeaf, "8");
+      tree.addChildLeaf(METype.numberLeaf, "8");
       tree.moveLeft();
       tree.moveLeft();
 
@@ -32,13 +32,13 @@ void main() {
     });
 
     test('should leave and enter function node correctly', () {
-      final LaTeXTree tree = LaTeXTree();
+      final MathTree tree = MathTree();
 
-      tree.addChildLeaf(LEType.numberLeaf, "4");
-      tree.addChildLeaf(LEType.operatorLeaf, "+");
-      tree.addChildNode(LEType.functionNode, content: "sin");
+      tree.addChildLeaf(METype.numberLeaf, "4");
+      tree.addChildLeaf(METype.operatorLeaf, "+");
+      tree.addChildNode(METype.functionNode, content: "sin");
       print("test the result of adding.");
-      tree.addChildLeaf(LEType.variableLeaf, "x");
+      tree.addChildLeaf(METype.variableLeaf, "x");
       expect(tree.toLaTeXString(), "\\(4+\\sin(x|)\\)");
 
       // Leave the node
@@ -68,13 +68,13 @@ void main() {
     });
 
     test('should leave and enter inverse function node correctly', () {
-      final LaTeXTree tree = LaTeXTree();
+      final MathTree tree = MathTree();
 
-      tree.addChildLeaf(LEType.numberLeaf, "4");
-      tree.addChildLeaf(LEType.operatorLeaf, "+");
-      tree.addChildNode(LEType.inverseFunctionNode, content: "sin");
+      tree.addChildLeaf(METype.numberLeaf, "4");
+      tree.addChildLeaf(METype.operatorLeaf, "+");
+      tree.addChildNode(METype.inverseFunctionNode, content: "sin");
       print("test the result of adding.");
-      tree.addChildLeaf(LEType.variableLeaf, "x");
+      tree.addChildLeaf(METype.variableLeaf, "x");
       expect(tree.toLaTeXString(), "\\(4+\\sin(x|)^{-1}\\)");
 
       // Leave the node
@@ -104,12 +104,12 @@ void main() {
     });
 
     test('should handle integral node correctly', () {
-      final LaTeXTree tree = LaTeXTree();
+      final MathTree tree = MathTree();
 
-      tree.addChildNode(LEType.integralNode);
-      tree.addChildLeaf(LEType.numberLeaf, "0");
+      tree.addChildNode(METype.integralNode);
+      tree.addChildLeaf(METype.numberLeaf, "0");
       tree.moveRight();
-      tree.addChildLeaf(LEType.textLeaf, "f(x)");
+      tree.addChildLeaf(METype.textLeaf, "f(x)");
       expect(tree.toLaTeXString(), "\\(\\int_{0}^{\\square}\\text{f(x)}|\\)");
 
       tree.moveLeft();
@@ -117,11 +117,11 @@ void main() {
 
       tree.moveLeft();
       tree.delete();
-      tree.addChildLeaf(LEType.variableLeaf, "a");
+      tree.addChildLeaf(METype.variableLeaf, "a");
       expect(tree.toLaTeXString(), "\\(\\int_{a|}^{\\square}\\text{f(x)}\\)");
 
       tree.moveUp();
-      tree.addChildLeaf(LEType.variableLeaf, "b");
+      tree.addChildLeaf(METype.variableLeaf, "b");
       expect(tree.toLaTeXString(), "\\(\\int_{a}^{b|}\\text{f(x)}\\)");
     });
   });
