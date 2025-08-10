@@ -356,8 +356,14 @@ void main(List<String> args) {
   controller.pressSquareRoot();
   controller.pressNumber("16");
 
+<<<<<<< HEAD
   print(
     "Controller Fraction and Root Example: ${controllerTree.toLaTeXString()}",
   );
   // Expected Output: \\(\\frac{1}{2}+\\sqrt{16|}\\)
 }
+=======
+  print("Controller Fraction and Root Example: ${controllerTree.toLaTeXString()}");
+  // Expected Output: \\(\\frac{1}{2}+\\sqrt{16|}\\)
+}
+>>>>>>> 47e6959bd980efbd79f3a08fcc270e570519968f

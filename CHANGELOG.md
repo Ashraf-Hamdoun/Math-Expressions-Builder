@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## 1.0.4
 - Improved `README.md` with more detailed descriptions, badges, and examples.
 - Corrected placeholder copyright notice in `LICENSE`.
@@ -7,6 +8,8 @@
 ## 1.0.3
 - Add some new features to core functionallity for building Math & LaTeX expresssions.
 
+=======
+>>>>>>> 47e6959bd980efbd79f3a08fcc270e570519968f
 ## 1.0.2
 - Added `MathInputController` for simplified, button-press like input of common mathematical elements.
 - Updated SDK constraint to `>=3.8.1 <4.0.0`.
