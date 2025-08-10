@@ -28,6 +28,9 @@ class MathTree {
   /// Returns the LaTeX string for the entire expression.
   String toLaTeXString() => _trunk.toLaTeXString();
 
+  /// Returns the Math string for the entire expression.
+  String toMathString() => _trunk.toMathString();
+
   /// Adds a leaf to the active node.
   void addChildLeaf(METype type, String content) {
     MathLeaf leaf = leavesGenerator(

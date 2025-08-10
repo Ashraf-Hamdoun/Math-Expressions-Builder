@@ -31,7 +31,7 @@ abstract class MathLeaf extends MathElement {
   /// Returns the LaTeX string for the leaf, which is just its content.
   @override
   Expressions computeExpressions() {
-    return Expressions(latex: child, dart: child);
+    return Expressions(latex: child, math: child);
   }
 }
 

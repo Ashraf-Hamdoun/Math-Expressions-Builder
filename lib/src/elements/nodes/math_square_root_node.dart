@@ -17,7 +17,8 @@ class MathSquareRootNode extends MathNode {
   @override
   Expressions computeExpressions() {
     return Expressions(
-        latex: "\\sqrt{${super.computeExpressions().latex}}",
-        dart: "sqrt(${super.computeExpressions().dart})");
+      latex: "\\sqrt{${super.computeExpressions().latex}}",
+      math: "(sqrt${super.computeExpressions().math})",
+    );
   }
 }

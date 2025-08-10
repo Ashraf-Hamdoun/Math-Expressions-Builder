@@ -90,18 +90,20 @@ MathNode nodesGenerator({
 
     case METype.integralNode:
       node = MathIntegralNode(
-          id: idsGenerator(type, parent.id),
-          parent: parent,
-          updateParent: (childId, childValue) =>
-              parent.onUpdateChildren(childId, childValue));
+        id: idsGenerator(type, parent.id),
+        parent: parent,
+        updateParent: (childId, childValue) =>
+            parent.onUpdateChildren(childId, childValue),
+      );
       break;
 
     case METype.summationNode:
       node = MathSummationNode(
-          id: idsGenerator(type, parent.id),
-          parent: parent,
-          updateParent: (childId, childValue) =>
-              parent.onUpdateChildren(childId, childValue));
+        id: idsGenerator(type, parent.id),
+        parent: parent,
+        updateParent: (childId, childValue) =>
+            parent.onUpdateChildren(childId, childValue),
+      );
       break;
 
     default:

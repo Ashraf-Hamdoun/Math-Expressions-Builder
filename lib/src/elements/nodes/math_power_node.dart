@@ -17,6 +17,8 @@ class MathPowerNode extends MathNode {
   @override
   Expressions computeExpressions() {
     return Expressions(
-        latex: "^{${super.computeExpressions().latex}}", dart: 'power');
+      latex: "^{${super.computeExpressions().latex}}",
+      math: '.ofPow${super.computeExpressions().math}',
+    );
   }
 }

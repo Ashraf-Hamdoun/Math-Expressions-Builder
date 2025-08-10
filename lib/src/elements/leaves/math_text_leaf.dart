@@ -19,6 +19,6 @@ class MathTextLeaf extends MathLeaf {
   Expressions computeExpressions() {
     // The child string represents the text content.
     // We wrap it in a \text{} command to display it correctly in math mode.
-    return Expressions(latex: '\\text{$child}', dart: ' $child ');
+    return Expressions(latex: '\\text{$child}', math: ' $child ');
   }
 }

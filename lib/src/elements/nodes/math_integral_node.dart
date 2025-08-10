@@ -80,9 +80,11 @@ class MathIntegralNode extends MathNode {
     // which is a standard practice in LaTeX.
 
     return Expressions(
-        latex:
-            "\\int_{${lowerLimit.computeExpressions().latex}}^{${upperLimit.computeExpressions().latex}}${integrand.computeExpressions().latex}",
-        dart: "integral");
+      latex:
+          "\\int_{${lowerLimit.computeExpressions().latex}}^{${upperLimit.computeExpressions().latex}}${integrand.computeExpressions().latex}",
+      math:
+          "integrate(${lowerLimit.computeExpressions().math}, ${upperLimit.computeExpressions().math}, ${integrand.computeExpressions().math})",
+    );
   }
 
   @override
