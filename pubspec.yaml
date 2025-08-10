@@ -1,10 +1,6 @@
 name: math_expressions_builder
 description: A stable Dart package to programmatically build and manipulate LaTeX math expressions using a tree-based structure.
-<<<<<<< HEAD
 version: 1.0.4
-=======
-version: 1.0.2
->>>>>>> 47e6959bd980efbd79f3a08fcc270e570519968f
 repository: https://github.com/Ashraf-Hamdoun/Math-Expressions-Builder.git
 homepage: https://github.com/Ashraf-Hamdoun/Math-Expressions-Builder
 issue_tracker: https://github.com/Ashraf-Hamdoun/Math-Expressions-Builder/issues
