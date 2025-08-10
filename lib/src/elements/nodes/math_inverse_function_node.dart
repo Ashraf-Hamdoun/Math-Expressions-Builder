@@ -14,7 +14,7 @@ class MathInverseFunctionNode extends MathNode {
   });
 
   @override
-  String get getType => METype.indexOfRootNode.name;
+  String get getType => METype.inverseFunctionNode.name;
 
   @override
   Expressions computeExpressions() {

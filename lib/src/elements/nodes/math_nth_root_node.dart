@@ -79,7 +79,7 @@ class MathNthRootNode extends MathNode {
       return parent;
     } else {
       if (position == 2) {
-        position == 1;
+        position = 1;
         return indexOfRoot.deleteActiveChild();
       } else {
         return null;

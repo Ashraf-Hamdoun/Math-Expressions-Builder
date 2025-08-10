@@ -36,20 +36,9 @@ While you can build math expressions with string concatenation, it quickly becom
     -   Integrals (`\int_{...}^{...}{...}`)
     -   Summations (`\sum_{...}^{...}{...}`)
     -   Standard operators, numbers, variables, and symbols.
-<<<<<<< HEAD
--   **🚀 Pure Dart & Cross-Platform**: Developed entirely in Dart for seamless integration and consistent performance across mobile, web, and desktop.
--   **⚡️ Optimized for Performance**: Uses a dirty-checking mechanism to re-render only the modified parts of the expression, ensuring high performance in dynamic UIs.
-=======
-<<<<<<< HEAD
--   **🚀 Pure Dart & Cross-Platform**: Developed entirely in Dart for seamless integration and consistent performance across mobile, web, and desktop.
--   **⚡️ Optimized for Performance**: Uses a dirty-checking mechanism to re-render only the modified parts of the expression, ensuring high performance in dynamic UIs.
-=======
 -   **✨ Simplified Input with `MathInputController`**: Offers a convenient, "button-press" like interface for quickly building expressions, abstracting away the underlying `METype` and content details for common inputs.
 -   **🚀 Pure Dart & Cross-Platform Compatibility**: Developed entirely in Dart, ensuring seamless integration and consistent performance across all Dart and Flutter supported platforms (Web, Mobile, Desktop).
 -   **⚡️ Optimized Performance**: Employs a "dirty-checking" mechanism to intelligently recompute only the modified segments of the LaTeX string, minimizing overhead and ensuring efficient rendering, particularly for dynamic or frequently updated expressions.
-
->>>>>>> 47e6959bd980efbd79f3a08fcc270e570519968f
->>>>>>> 25ad58e99aae1b58cacb1d8dc4e42318a9661ba2
 
 ## Visual Demonstration
 
@@ -65,15 +54,7 @@ Add `math_expressions_builder` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-<<<<<<< HEAD
   math_expressions_builder: ^1.0.5 # Always use the latest stable version
-=======
-<<<<<<< HEAD
-  math_expressions_builder: ^1.0.3 # Always use the latest stable version
-=======
-  math_expressions_builder: ^1.0.2 # Always use the latest stable version
->>>>>>> 47e6959bd980efbd79f3a08fcc270e570519968f
->>>>>>> 25ad58e99aae1b58cacb1d8dc4e42318a9661ba2
 ```
 
 Then, run `flutter pub get` or `dart pub get`.
@@ -112,13 +93,6 @@ void main() {
 }
 ```
 
-<<<<<<< HEAD
-## In-Depth Example: Constructing a Fraction
-
-=======
-<<<<<<< HEAD
-## In-Depth Example: Constructing a Fraction
-=======
 ### Simplified Input with `MathInputController`
 
 The `MathInputController` provides a more intuitive, "button-press" like interface for building expressions, abstracting away the underlying `METype` and content details for common inputs.
@@ -153,9 +127,7 @@ void main() {
 ```
 
 ### Constructing a Fraction: `2 + 8/5`
->>>>>>> 47e6959bd980efbd79f3a08fcc270e570519968f
 
->>>>>>> 25ad58e99aae1b58cacb1d8dc4e42318a9661ba2
 This example shows how to build `2 + 8/5` and how the cursor moves intelligently.
 
 ```dart
@@ -171,7 +143,7 @@ print(tree.toLaTeXString()); // Output: \(2+\frac{|}{\square}\)
 
 // Populate the numerator.
 tree.addChildLeaf(METype.numberLeaf, "8");
-print(tree.toLaTeXString()); // Output: \(2+\frac{8|}{\square}\)
+print(tree.toLaTeXString()); // Output: \(2+\frac{8|}\square}\)
 
 // Move the cursor to the denominator.
 tree.moveDown();
@@ -188,24 +160,6 @@ For more detailed examples, including integrals, summations, and the `MathInputC
 
 The API is designed for clarity and power.
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 25ad58e99aae1b58cacb1d8dc4e42318a9661ba2
--   **`MathTree`**: The main class for managing the expression.
-    -   `toLaTeXString()`: Returns the render-ready LaTeX string.
-    -   `toMathString()`: Returns the computable/parsable math string.
-    -   `addChildLeaf(METype type, String content)`: Adds an atomic element (number, operator).
-    -   `addChildNode(METype type, {String content = ""})`: Adds a structural element (fraction, root) and moves the cursor inside it.
-    -   `moveUp()`, `moveDown()`, `moveLeft()`, `moveRight()`: Navigates the cursor through the expression tree.
-    -   `delete()`: Removes the element to the left of the cursor.
-    -   `clear()`: Resets the tree to an empty state.
--   **`MathInputController`**: A convenience wrapper around `MathTree` for a "calculator button" style of input.
-    -   `pressOne()`, `pressPlus()`, `pressFraction()`, etc.
--   **`METype`**: An enum that defines all supported types of leaves and nodes, ensuring type safety.
-<<<<<<< HEAD
-=======
-=======
 -   **`MathTree`**: The central class for managing the LaTeX expression.
     -   `addChildLeaf(METype type, String content)`: Appends a new leaf element (e.g., number, operator, symbol) at the current cursor position.
     -   `addChildNode(METype type, {String content = ""})`: Inserts a new structural node (e.g., fraction, root, power) at the cursor. The cursor then automatically moves into the node's primary input field.
@@ -225,8 +179,6 @@ The API is designed for clarity and power.
     -   `pressDelete()`: Delete the element at the cursor.
     -   `pressClear()`: Clear the entire tree.
 -   **`METype`**: An enumeration defining all supported types of LaTeX leaves and nodes, ensuring type-safe and explicit element creation.
->>>>>>> 47e6959bd980efbd79f3a08fcc270e570519968f
->>>>>>> 25ad58e99aae1b58cacb1d8dc4e42318a9661ba2
 
 ## Advanced Topics
 

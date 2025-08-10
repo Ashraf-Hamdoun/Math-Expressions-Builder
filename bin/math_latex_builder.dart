@@ -20,6 +20,6 @@ void main(List<String> args) {
   tree.moveDown();
   tree.addChildLeaf(METype.numberLeaf, "8");
 
-  print("result : ${tree.toLaTeXString}");
+  print("result : ${tree.toLaTeXString()}");
   // 4+\frac{15-\sqrt{7}}{\sqrt[9]{\frac{3}{8|}}}
 }

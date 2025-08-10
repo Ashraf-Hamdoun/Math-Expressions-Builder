@@ -39,7 +39,7 @@ MathLeaf leavesGenerator({
     case METype.variableLeaf:
       leaf = MathVariableLeaf(
         child: content,
-        id: idsGenerator(METype.operatorLeaf, parent.id),
+        id: idsGenerator(METype.variableLeaf, parent.id),
         parent: parent,
       );
       break;
