@@ -19,7 +19,8 @@ class MathFunctionNode extends MathNode {
   @override
   Expressions computeExpressions() {
     return Expressions(
-        latex: "\\$function(${super.computeExpressions().latex})",
-        dart: "$function(${super.computeExpressions().dart})");
+      latex: "\\$function(${super.computeExpressions().latex})",
+      math: "($function${super.computeExpressions().math})",
+    );
   }
 }

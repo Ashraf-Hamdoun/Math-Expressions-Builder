@@ -1,4 +1,1 @@
-enum MathExpressionType {
-  latex,
-  dart,
-}
+enum MathExpressionType { latex, dart }

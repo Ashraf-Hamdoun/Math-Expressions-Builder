@@ -19,8 +19,9 @@ class MathTrunk extends MathNode {
   @override
   Expressions computeExpressions() {
     return Expressions(
-        latex: "\\(${super.computeExpressions().latex}\\)",
-        dart: super.computeExpressions().dart);
+      latex: "\\(${super.computeExpressions().latex}\\)",
+      math: super.computeExpressions().math,
+    );
   }
 
   /// The default callback for child updates.

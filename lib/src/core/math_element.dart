@@ -17,7 +17,7 @@ abstract class MathElement {
   final MathNode? parent;
 
   bool isDirty = true;
-  Expressions _cachedExpressions = Expressions(latex: "", dart: "");
+  Expressions _cachedExpressions = Expressions(latex: "", math: "");
   // String _cachedDartString = "";
 
   MathElement({required this.id, required this.parent});
@@ -46,12 +46,12 @@ abstract class MathElement {
     return _cachedExpressions.latex;
   }
 
-  String toDartString() {
+  String toMathString() {
     if (isDirty) {
       _cachedExpressions = computeExpressions();
       isDirty = false;
     }
-    return _cachedExpressions.dart;
+    return _cachedExpressions.math;
   }
 
   /// Marks the element and its ancestors as dirty.

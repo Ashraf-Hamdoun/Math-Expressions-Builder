@@ -75,9 +75,11 @@ class MathSummationNode extends MathNode {
     // We add a small space `\,` before a placeholder differential 'dx' for clarity,
     // which is a standard practice in LaTeX.
     return Expressions(
-        latex:
-            "\\sum_{${lowerLimit.computeExpressions().latex}}^{${upperLimit.computeExpressions().latex}}${summand.computeExpressions().latex}",
-        dart: 'summation');
+      latex:
+          "\\sum_{${lowerLimit.computeExpressions().latex}}^{${upperLimit.computeExpressions().latex}}${summand.computeExpressions().latex}",
+      math:
+          'summation(${lowerLimit.computeExpressions().math}, ${upperLimit.computeExpressions().math}, ${summand.computeExpressions().math})',
+    );
   }
 
   @override

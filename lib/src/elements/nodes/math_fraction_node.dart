@@ -44,10 +44,11 @@ class MathFractionNode extends MathNode {
   @override
   Expressions computeExpressions() {
     return Expressions(
-        latex:
-            "\\frac{${numerator.computeExpressions().latex}}{${denominator.computeExpressions().latex}}",
-        dart:
-            "(${numerator.computeExpressions().dart}) / (${denominator.computeExpressions().dart})");
+      latex:
+          "\\frac{${numerator.computeExpressions().latex}}{${denominator.computeExpressions().latex}}",
+      math:
+          "(${numerator.computeExpressions().math} / ${denominator.computeExpressions().math})",
+    );
   }
 
   @override

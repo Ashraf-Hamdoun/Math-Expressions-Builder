@@ -106,7 +106,8 @@ void main(List<String> args) {
   tree.addChildLeaf(METype.numberLeaf, "5");
   tree.addChildLeaf(METype.operatorLeaf, "-");
   tree.addChildNode(
-      METype.squareRootNode); // Cursor moves into the square root.
+    METype.squareRootNode,
+  ); // Cursor moves into the square root.
   tree.addChildLeaf(METype.numberLeaf, "7");
   print("Current LaTeX: ${tree.toLaTeXString()}");
   // Output: y=1-\\frac{f^{n}[\\frac{s.1}{f}+(\\frac{15-\\sqrt{7|} }{\\square})]}{\\square}
@@ -355,6 +356,8 @@ void main(List<String> args) {
   controller.pressSquareRoot();
   controller.pressNumber("16");
 
-  print("Controller Fraction and Root Example: ${controllerTree.toLaTeXString()}");
+  print(
+    "Controller Fraction and Root Example: ${controllerTree.toLaTeXString()}",
+  );
   // Expected Output: \\(\\frac{1}{2}+\\sqrt{16|}\\)
 }

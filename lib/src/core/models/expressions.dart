@@ -1,5 +1,5 @@
 class Expressions {
   final String latex;
-  final String dart;
-  Expressions({required this.latex, required this.dart});
+  final String math;
+  Expressions({required this.latex, required this.math});
 }

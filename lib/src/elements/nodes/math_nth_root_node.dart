@@ -44,10 +44,11 @@ class MathNthRootNode extends MathNode {
   @override
   Expressions computeExpressions() {
     return Expressions(
-        latex:
-            "\\sqrt[${indexOfRoot.computeExpressions().latex}]{${radicand.computeExpressions().latex}}",
-        dart:
-            "pow(${radicand.computeExpressions().dart}, 1 / ${indexOfRoot.computeExpressions().dart})");
+      latex:
+          "\\sqrt[${indexOfRoot.computeExpressions().latex}]{${radicand.computeExpressions().latex}}",
+      math:
+          "(pow(${radicand.computeExpressions().math}, 1 / ${indexOfRoot.computeExpressions().math}))",
+    );
   }
 
   @override

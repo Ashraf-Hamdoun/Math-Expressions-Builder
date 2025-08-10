@@ -49,14 +49,25 @@ abstract class MathNode extends MathElement {
   Expressions computeExpressions() {
     if (_children.length == 1) {
       return Expressions(
-          latex: (_isActive) ? markOfInsertPoint : "\\square", dart: "");
+        latex: (_isActive) ? markOfInsertPoint : "\\square",
+        math: "()",
+      );
     } else {
-      List<String> parts =
-          _children.map((child) => child.toLaTeXString()).toList();
+      List<String> latexParts = _children
+          .map((child) => child.toLaTeXString())
+          .toList();
+      List<String> mathParts = _children
+          .map((child) => child.toMathString())
+          .toList();
+
       if (_isActive) {
-        parts.insert(position + 1, '|');
+        latexParts.insert(position + 1, '|');
       }
-      return Expressions(latex: parts.join(), dart: "");
+
+      return Expressions(
+        latex: latexParts.join(),
+        math: "(${mathParts.join()})",
+      );
     }
   }
 

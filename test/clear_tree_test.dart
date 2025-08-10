@@ -10,10 +10,13 @@ void main() {
       tree.addChildNode(METype.functionNode, content: 'sin');
       tree.addChildLeaf(METype.numberLeaf, "8");
       tree.addChildLeaf(METype.numberLeaf, "5");
+
       expect(tree.toLaTeXString(), '\\(1-\\sin(85|)\\)');
+      expect(tree.toMathString(), '(1-(sin(85)))');
 
       tree.clear();
       expect(tree.toLaTeXString(), "\\(|\\)");
+      expect(tree.toMathString(), '()');
     });
   });
 }
