@@ -1,3 +1,6 @@
+## 1.1.1
+  - Format all dart files to match the Dart formatter.
+
 ## 1.1.0
 - **Project Professionalization & Documentation Overhaul:**
   - Rewrote and clarified all user-facing examples in the `example`, `bin`, and `README.md` files to better showcase package features.

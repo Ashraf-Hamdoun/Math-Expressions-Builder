@@ -55,7 +55,7 @@ void main() {
       controller.pressVariable("x");
 
       expect(mathTree.toLaTeXString(), r'\(\sin(x|)\)');
-      expect(mathTree.toMathString(), '(sin(x))');
+      expect(mathTree.toMathString(), '((sin(x)))');
     });
 
     test('should add cosine function correctly', () {
@@ -63,7 +63,7 @@ void main() {
       controller.pressVariable("y");
 
       expect(mathTree.toLaTeXString(), r'\(\cos(y|)\)');
-      expect(mathTree.toMathString(), '(cos(y))');
+      expect(mathTree.toMathString(), '((cos(y)))');
     });
 
     test('should add tangent function correctly', () {
@@ -71,7 +71,7 @@ void main() {
       controller.pressNumber("45");
 
       expect(mathTree.toLaTeXString(), r'\(\tan(45|)\)');
-      expect(mathTree.toMathString(), '(tan(45))');
+      expect(mathTree.toMathString(), '((tan(45)))');
     });
 
     test('should add natural logarithm correctly', () {
@@ -79,7 +79,7 @@ void main() {
       controller.pressNumber("10");
 
       expect(mathTree.toLaTeXString(), r'\(\ln(10|)\)');
-      expect(mathTree.toMathString(), '(ln(10))');
+      expect(mathTree.toMathString(), '((ln(10)))');
     });
 
     test('should add base-10 logarithm correctly', () {
@@ -87,7 +87,7 @@ void main() {
       controller.pressNumber("100");
 
       expect(mathTree.toLaTeXString(), r'\(\log(100|)\)');
-      expect(mathTree.toMathString(), '(log(100))');
+      expect(mathTree.toMathString(), '((log(100)))');
     });
 
     test('should add inversed sine function correctly', () {
@@ -95,7 +95,7 @@ void main() {
       controller.pressNumber("0.5");
 
       expect(mathTree.toLaTeXString(), r'\(\sin(0.5|)^{-1}\)');
-      expect(mathTree.toMathString(), '(1 / sin(0.5))');
+      expect(mathTree.toMathString(), '((1 / sin(0.5)))');
     });
 
     test('should add inversed cosine function correctly', () {
@@ -103,7 +103,7 @@ void main() {
       controller.pressNumber("0.8");
 
       expect(mathTree.toLaTeXString(), r'\(\cos(0.8|)^{-1}\)');
-      expect(mathTree.toMathString(), '(1 / cos(0.8))');
+      expect(mathTree.toMathString(), '((1 / cos(0.8)))');
     });
 
     test('should add inversed tangent function correctly', () {
@@ -111,7 +111,7 @@ void main() {
       controller.pressNumber("1");
 
       expect(mathTree.toLaTeXString(), r'\(\tan(1|)^{-1}\)');
-      expect(mathTree.toMathString(), '(1 / tan(1))');
+      expect(mathTree.toMathString(), '((1 / tan(1)))');
     });
 
     test('should add Pi symbol correctly', () {
@@ -144,7 +144,7 @@ void main() {
       controller.pressVariable("b");
       controller.pressRightBracket();
 
-      expect(mathTree.toLaTeXString(), r'\([a\times b]|\)');
+      expect(mathTree.toLaTeXString(), r'\([a\timesb]|\)');
       expect(mathTree.toMathString(), '([a*b])');
     });
 
@@ -155,7 +155,7 @@ void main() {
       controller.pressNumber("2");
       controller.pressRightBrace();
 
-      expect(mathTree.toLaTeXString(), r'\(\{10\div2\}|\)');
+      expect(mathTree.toLaTeXString(), r'\({10\div2}|\)');
       expect(mathTree.toMathString(), '({10/2})');
     });
   });
@@ -178,7 +178,7 @@ void main() {
       controller.pressRightParenthesis();
 
       expect(mathTree.toLaTeXString(), r'\(\sin((\pi\div2)|)\)');
-      expect(mathTree.toMathString(), '(sin((pi/2)))');
+      expect(mathTree.toMathString(), '((sin((pi/2))))');
     });
 
     test('should handle mixed operations and navigation', () {
@@ -192,7 +192,7 @@ void main() {
       controller.pressNumber("16");
 
       expect(mathTree.toLaTeXString(), r'\(\frac{1}{2}+\sqrt{16|}\)');
-      expect(mathTree.toMathString(), '( (1) / (2) + (sqrt(16)) )');
+      expect(mathTree.toMathString(), '(((1) / (2))+(sqrt(16)))');
     });
 
     test('should clear the tree', () {

@@ -95,20 +95,20 @@ enum METype {
 extension METypeUserFacing on METype {
   /// Returns true if this type is a user-facing type for adding elements.
   bool get isUserFacing => const {
-        METype.functionNode,
-        METype.inverseFunctionNode,
-        METype.fractionNode,
-        METype.squareRootNode,
-        METype.cubeRootNode,
-        METype.nthRootNode,
-        METype.powerNode,
-        METype.integralNode,
-        METype.summationNode,
-        METype.numberLeaf,
-        METype.operatorLeaf,
-        METype.variableLeaf,
-        METype.symbolLeaf,
-        METype.specialSymbolLeaf,
-        METype.textLeaf,
-      }.contains(this);
+    METype.functionNode,
+    METype.inverseFunctionNode,
+    METype.fractionNode,
+    METype.squareRootNode,
+    METype.cubeRootNode,
+    METype.nthRootNode,
+    METype.powerNode,
+    METype.integralNode,
+    METype.summationNode,
+    METype.numberLeaf,
+    METype.operatorLeaf,
+    METype.variableLeaf,
+    METype.symbolLeaf,
+    METype.specialSymbolLeaf,
+    METype.textLeaf,
+  }.contains(this);
 }
