@@ -105,13 +105,11 @@ class MathSummationNode extends MathNode {
 
       if (position != 3) {
         position = 3;
-
         return summand;
       } else {
         // Move out of the integral node to the right
-
-        parent!.position++;
-
+        // it will return after the integral in the parent
+        // so it is not needto => parent!.position++;
         return parent!;
       }
     }

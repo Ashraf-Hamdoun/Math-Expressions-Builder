@@ -17,6 +17,13 @@ class MathSpecialSymbolLeaf extends MathLeaf {
 
   @override
   Expressions computeExpressions() {
-    return Expressions(latex: '\\$child', math: child);
+    return Expressions(
+      latex: '\\$child',
+      math: (child == "times")
+          ? '*'
+          : (child == "div")
+          ? '/'
+          : child,
+    );
   }
 }

@@ -1,3 +1,11 @@
+## 1.1.0
+- **Project Professionalization & Documentation Overhaul:**
+  - Rewrote and clarified all user-facing examples in the `example`, `bin`, and `README.md` files to better showcase package features.
+  - Added comprehensive Dartdoc API documentation to all public classes and methods, including `MathTree` and `MathInputController`.
+  - Replaced the placeholder visual in the `README.md` with a rendered image of the quadratic formula.
+  - Upgraded project configuration, including dependency versions, `.gitignore`, and linting rules.
+  - Formatted the entire codebase to align with Dart's recommended style guidelines.
+
 ## 1.0.5
     - Fix some issues in README.md file.
 

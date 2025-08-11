@@ -1,25 +1,53 @@
 import 'package:math_expressions_builder/math_expressions_builder.dart';
 
+/// A command-line application to demonstrate the capabilities of the
+/// `math_expressions_builder` package.
+///
+/// This example builds the quadratic formula to showcase how easily complex,
+/// nested expressions can be constructed.
 void main(List<String> args) {
-  final MathTree tree = MathTree();
+  print('--- Math Expressions Builder CLI Demonstration ---');
 
-  tree.addChildLeaf(METype.numberLeaf, "4");
-  tree.addChildLeaf(METype.operatorLeaf, "+");
+  // This example builds the quadratic formula: x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}
+  print('\nBuilding the Quadratic Formula:');
+
+  final tree = MathTree();
+
+  // Start with x =
+  tree.addChildLeaf(METype.variableLeaf, 'x');
+  tree.addChildLeaf(METype.operatorLeaf, '=');
+
+  // Create the main fraction
   tree.addChildNode(METype.fractionNode);
-  tree.addChildLeaf(METype.numberLeaf, "1");
-  tree.addChildLeaf(METype.numberLeaf, "5");
-  tree.addChildLeaf(METype.operatorLeaf, "-");
+
+  // --- Numerator: -b \pm \sqrt{b^2-4ac} ---
+  tree.addChildLeaf(METype.operatorLeaf, '-');
+  tree.addChildLeaf(METype.variableLeaf, 'b');
+  tree.addChildLeaf(METype.specialSymbolLeaf, 'pm'); // \pm symbol
   tree.addChildNode(METype.squareRootNode);
-  tree.addChildLeaf(METype.numberLeaf, "7");
-  tree.moveDown();
-  tree.addChildNode(METype.nthRootNode);
-  tree.addChildLeaf(METype.numberLeaf, "9");
-  tree.moveRight();
-  tree.addChildNode(METype.fractionNode);
-  tree.addChildLeaf(METype.numberLeaf, "3");
-  tree.moveDown();
-  tree.addChildLeaf(METype.numberLeaf, "8");
 
-  print("result : ${tree.toLaTeXString()}");
-  // 4+\frac{15-\sqrt{7}}{\sqrt[9]{\frac{3}{8|}}}
+  // Inside the square root: b^2-4ac
+  tree.addChildLeaf(METype.variableLeaf, 'b');
+  tree.addChildNode(METype.powerNode);
+  tree.addChildLeaf(METype.numberLeaf, '2');
+  tree.moveRight(); // Exit power
+  tree.addChildLeaf(METype.operatorLeaf, '-');
+  tree.addChildLeaf(METype.numberLeaf, '4');
+  tree.addChildLeaf(METype.variableLeaf, 'a');
+  tree.addChildLeaf(METype.variableLeaf, 'c');
+  tree.moveRight(); // Exit square root
+
+  // --- Denominator: 2a ---
+  tree.moveDown();
+  tree.addChildLeaf(METype.numberLeaf, '2');
+  tree.addChildLeaf(METype.variableLeaf, 'a');
+
+  // Print the final results
+  print('\nLaTeX Output:');
+  print('  ${tree.toLaTeXString()}');
+
+  print('\nComputable Math String:');
+  print('  ${tree.toMathString()}');
+
+  print('\nDemonstration complete.');
 }

@@ -42,9 +42,11 @@ While you can build math expressions with string concatenation, it quickly becom
 
 ## Visual Demonstration
 
-![Package Demo](https://place-hold.it/700x400?text=Dynamic+LaTeX+Building+and+Cursor+Navigation)
+Building the quadratic formula programmatically:
 
-*The above is a placeholder. Replace with a real GIF or screenshot to showcase dynamic LaTeX building and cursor navigation for best results.*
+![Quadratic Formula Demo](https://latex.codecogs.com/svg.latex?x=\frac{-b\pm\sqrt{b^2-4ac}}{2a})
+
+*The above image is a rendered output of the quadratic formula, which can be built using this package as shown in the `bin` and `example` directories.*
 
 ---
 
@@ -54,7 +56,7 @@ Add `math_expressions_builder` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  math_expressions_builder: ^1.0.5 # Always use the latest stable version
+  math_expressions_builder: ^1.1.0 # Always use the latest stable version
 ```
 
 Then, run `flutter pub get` or `dart pub get`.
@@ -65,9 +67,9 @@ Import the library in your Dart code:
 import 'package:math_expressions_builder/math_expressions_builder.dart';
 ```
 
-## Usage Example: `toLaTeXString` and `toMathString`
+## Usage Example
 
-This example demonstrates how the same tree can produce two different outputs.
+This example demonstrates how the same `MathTree` can produce two different outputs: a render-ready LaTeX string and a computable math string.
 
 ```dart
 import 'package:math_expressions_builder/math_expressions_builder.dart';
@@ -76,26 +78,27 @@ void main() {
   final tree = MathTree();
 
   // Build the expression: 1 + sqrt(9)
-  tree.addChildLeaf(METype.numberLeaf, "1");
-  tree.addChildLeaf(METype.operatorLeaf, "+");
+  tree.addChildLeaf(METype.numberLeaf, '1');
+  tree.addChildLeaf(METype.operatorLeaf, '+');
   tree.addChildNode(METype.squareRootNode);
-  tree.addChildLeaf(METype.numberLeaf, "9");
+  tree.addChildLeaf(METype.numberLeaf, '9');
 
-  // Generate the LaTeX string for rendering
+  // 1. Generate the LaTeX string for rendering.
+  // The '|' character indicates the current cursor position.
   final latexString = tree.toLaTeXString();
   print('LaTeX Output: $latexString');
   // Output: LaTeX Output: \(1+\sqrt{9|}\)
 
-  // Generate the math string for computation or analysis
+  // 2. Generate the math string for computation or analysis.
   final mathString = tree.toMathString();
-  print('Math Output: $mathString');
-  // Output: Math Output: (1+(sqrt(9)))
+  print('Math Output:  $mathString');
+  // Output: Math Output:  (1+(sqrt(9)))
 }
 ```
 
 ### Simplified Input with `MathInputController`
 
-The `MathInputController` provides a more intuitive, "button-press" like interface for building expressions, abstracting away the underlying `METype` and content details for common inputs.
+The `MathInputController` provides a more intuitive, "button-press" like interface for building expressions. This is ideal for creating UIs like on-screen calculators.
 
 ```dart
 import 'package:math_expressions_builder/math_expressions_builder.dart';
@@ -104,54 +107,55 @@ void main() {
   final tree = MathTree();
   final controller = MathInputController(tree);
 
-  controller.pressOne();
-  controller.pressPlus();
-  controller.pressNumber("12"); // Use for multi-digit numbers
-  controller.pressMultiply();
-  controller.pressEight();
-
-  print(tree.toLaTeXString()); // Output: \(1+12\times8|\)
-
-  controller.pressClear(); // Clear the tree
+  // Build the expression: 1/2 + sqrt(16)
   controller.pressFraction();
   controller.pressOne();
   controller.moveDown();
   controller.pressTwo();
-  controller.moveRight();
+  controller.moveRight(); // Move out of the fraction
   controller.pressPlus();
   controller.pressSquareRoot();
-  controller.pressNumber("16");
+  controller.pressNumber('16');
 
-  print(tree.toLaTeXString()); // Output: \(\frac{1}{2}+\sqrt{16|}\)
+  print('LaTeX Output: ${tree.toLaTeXString()}');
+  // Output: LaTeX Output: \(\frac{1}{2}+\sqrt{16|}\)
+
+  print('Math Output:  ${tree.toMathString()}');
+  // Output: Math Output:  ( (1) / (2) + (sqrt(16)) )
 }
 ```
 
-### Constructing a Fraction: `2 + 8/5`
+### Constructing and Navigating a Fraction
 
-This example shows how to build `2 + 8/5` and how the cursor moves intelligently.
+This example shows how to build a fraction and how the cursor moves intelligently between its numerator and denominator.
 
 ```dart
 final tree = MathTree();
 
-tree.addChildLeaf(METype.numberLeaf, "2");
-tree.addChildLeaf(METype.operatorLeaf, "+");
-print(tree.toLaTeXString()); // Output: \(2+|\)
+tree.addChildLeaf(METype.numberLeaf, '2');
+tree.addChildLeaf(METype.operatorLeaf, '+');
+print('Step 1:  ${tree.toLaTeXString()}');
+// Output: Step 1:  \(2+|\)
 
-// Add a fraction node; cursor automatically moves to the numerator.
+// Add a fraction; the cursor automatically moves to the numerator.
 tree.addChildNode(METype.fractionNode);
-print(tree.toLaTeXString()); // Output: \(2+\frac{|}{\square}\)
+print('Step 2:  ${tree.toLaTeXString()}');
+// Output: Step 2:  \(2+\frac{|}{\square}\)
 
 // Populate the numerator.
-tree.addChildLeaf(METype.numberLeaf, "8");
-print(tree.toLaTeXString()); // Output: \(2+\frac{8|}\square}\)
+tree.addChildLeaf(METype.numberLeaf, '8');
+print('Step 3:  ${tree.toLaTeXString()}');
+// Output: Step 3:  \(2+\frac{8|}{\square}\)
 
 // Move the cursor to the denominator.
 tree.moveDown();
-print(tree.toLaTeXString()); // Output: \(2+\frac{8}{|}\)
+print('Step 4:  ${tree.toLaTeXString()}');
+// Output: Step 4:  \(2+\frac{8}{|}\)
 
 // Populate the denominator.
-tree.addChildLeaf(METype.numberLeaf, "5");
-print(tree.toLaTeXString()); // Output: \(2+\frac{8}{5|}\)
+tree.addChildLeaf(METype.numberLeaf, '5');
+print('Step 5:  ${tree.toLaTeXString()}');
+// Output: Step 5:  \(2+\frac{8}{5|}\)
 ```
 
 For more detailed examples, including integrals, summations, and the `MathInputController`, please see the file in `example/math_expressions_builder_example.dart`.
