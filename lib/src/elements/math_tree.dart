@@ -82,37 +82,44 @@ class MathTree {
   }
 
   /// Moves the cursor in the specified [direction].
-  void _move(Direction direction) {
+  bool _move(Direction direction) {
+    final oldLatex = toLaTeXString();
     _activeParent.leaveNode();
     _activeParent = _activeParent.move(direction);
     _activeParent.enterNode();
+    return oldLatex != toLaTeXString();
   }
 
   /// Moves the cursor up to the parent node or a node in an upper position.
-  void moveUp() => _move(Direction.up);
+  bool moveUp() => _move(Direction.up);
 
   /// Moves the cursor down to a child node or a node in a lower position.
-  void moveDown() => _move(Direction.down);
+  bool moveDown() => _move(Direction.down);
 
   /// Moves the cursor one position to the left.
-  void moveLeft() => _move(Direction.left);
+  bool moveLeft() => _move(Direction.left);
 
   /// Moves the cursor one position to the right.
-  void moveRight() => _move(Direction.right);
+  bool moveRight() => _move(Direction.right);
 
   /// Clears the entire expression tree, resetting it to an empty state.
-  void clear() {
+  bool clear() {
+    final oldLatex = toLaTeXString();
+    if (oldLatex == r'\(|\)') return false;
+
     _activeParent.leaveNode();
     _trunk.clear();
     _activeParent = _trunk;
     _activeParent.enterNode();
+    return true;
   }
 
   /// Deletes the element immediately to the left of the cursor.
   ///
   /// If the cursor is at the beginning of a node, this may delete the node
   /// itself if it's empty, or move the cursor out of the node.
-  void delete() {
+  bool delete() {
+    final oldLatex = toLaTeXString();
     final node = _activeParent.deleteActiveChild();
     if (node != null) {
       // The active parent might change after a deletion.
@@ -120,5 +127,6 @@ class MathTree {
       _activeParent = node;
       _activeParent.enterNode();
     }
+    return oldLatex != toLaTeXString();
   }
 }

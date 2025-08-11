@@ -191,7 +191,7 @@ void main() {
       controller.pressSquareRoot();
       controller.pressNumber("16");
 
-      expect(mathTree.toLaTeXString(), r'\(\frac{1}{2}+\sqrt{16|}\)');
+      expect(mathTree.toLaTeXString(), '\\(\\frac{1}{2}+\\sqrt{16|}\\)');
       expect(mathTree.toMathString(), '(((1) / (2))+(sqrt(16)))');
     });
 
@@ -241,30 +241,34 @@ void main() {
       controller.pressPlus();
       expect(listenerCallCount, 2);
 
-      controller.moveRight(); // Cursor movement is a state change
-      expect(listenerCallCount, 3);
+      // Moving right at the end of the expression is not a state change
+      controller.moveRight();
+      expect(listenerCallCount, 2);
 
-      controller.pressDelete();
-      expect(listenerCallCount, 4);
+      controller.pressDelete(); // Deletes '+'
+      expect(listenerCallCount, 3);
     });
 
-    test(
-      'listener should not be called if no state change (e.g., move beyond bounds)',
-      () {
-        controller.pressOne();
-        listenerCallCount = 0; // Reset for this specific test
+    test('listener should only be called on actual state change', () {
+      controller.pressOne(); // state: 1| -> count: 1
+      listenerCallCount = 0;
 
-        // Try to move left when at the beginning
-        controller.moveLeft();
-        expect(listenerCallCount, 0); // No change, listener not called
+      // Moving left is a valid state change
+      controller.moveLeft(); // state: |1 -> count: 1
+      expect(listenerCallCount, 1);
 
-        // Try to delete when tree is empty
-        controller.pressClear();
-        listenerCallCount = 0;
-        controller.pressDelete();
-        expect(listenerCallCount, 0); // No change, listener not called
-      },
-    );
+      // Moving left again is a move beyond bounds, no state change
+      controller.moveLeft(); // state: |1 -> count: 1
+      expect(listenerCallCount, 1);
+
+      // Clear the tree
+      controller.pressClear(); // state: | -> count: 2
+      expect(listenerCallCount, 2);
+
+      // Try to delete when tree is empty, no state change
+      controller.pressDelete(); // state: | -> count: 2
+      expect(listenerCallCount, 2);
+    });
 
     test('listener can be removed', () {
       controller.pressOne();

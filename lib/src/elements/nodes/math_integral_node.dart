@@ -91,23 +91,17 @@ class MathIntegralNode extends MathNode {
   MathNode move(Direction direction) {
     if (direction == Direction.left) {
       // Logic for moving left
-
       if (position == 3) {
         position = 1;
-
         return lowerLimit;
       } else {
         // Move out of the integral node to the left
-
         parent!.position--;
-
         return parent!;
       }
     } else {
       // direction == Direction.right
-
       // Logic for moving right
-
       if (position != 3) {
         position = 3;
         return integrand;
@@ -122,40 +116,22 @@ class MathIntegralNode extends MathNode {
 
   @override
   MathNode? deleteActiveChild() {
-    MathNode activeChild = children[position] as MathNode;
-
-    // If the active child is not empty, handle the deletion within the child.
-
-    if (activeChild.children.isNotEmpty) {
-      return activeChild.deleteActiveChild();
-    }
-
-    // If the active child is empty, delete it from the children list.
-
     // The integral node can only be deleted if all of its children are empty.
-
-    if (lowerLimit.children.isEmpty &&
-        upperLimit.children.isEmpty &&
-        integrand.children.isEmpty) {
+    if (lowerLimit.children.length == 1 &&
+        upperLimit.children.length == 1 &&
+        integrand.children.length == 1) {
       // All children are empty, so we can delete the integral node itself.
-
-      parent!.deleteActiveChild();
-
-      return parent;
-    }
-
-    // A child is empty, but others are not. Move to the previous position.
-
-    if (position > 1) {
-      position--;
-
-      return this;
+      return parent!.deleteActiveChild();
     } else {
-      // If the first child (lowerLimit) is empty, move to the parent.
-
-      parent!.deleteActiveChild();
-
-      return parent;
+      // One of children is not empty
+      // Move back ...
+      if (position >= 2) {
+        position--;
+        return (position == 2) ? upperLimit : lowerLimit;
+      } else {
+        // Get out
+        return parent!;
+      }
     }
   }
 }

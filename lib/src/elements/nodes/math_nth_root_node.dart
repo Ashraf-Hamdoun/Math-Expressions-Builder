@@ -53,22 +53,41 @@ class MathNthRootNode extends MathNode {
 
   @override
   MathNode move(Direction direction) {
-    if (position == 1 && direction == Direction.right) {
-      position = 2;
-      return radicand;
-    } else if (position == 2 && direction == Direction.left) {
-      position = 1;
-      return indexOfRoot;
-    } else {
-      if (direction == Direction.right) {
+    if (direction == Direction.right) {
+      if (position == 1) {
+        position = 2;
+        return radicand;
+      } else {
         return parent!;
-      } else if (direction == Direction.left) {
-        parent?.position--;
+      }
+    } else if (direction == Direction.left) {
+      if (position == 1) {
+        parent!.position--;
         return parent!;
       } else {
-        return parent!.move(direction);
+        position = 1;
+        return indexOfRoot;
       }
+    } else {
+      return parent!.move(direction);
     }
+
+    // if (position == 1 && direction == Direction.right) {
+    //   position = 2;
+    //   return radicand;
+    // } else if (position == 2 && direction == Direction.left) {
+    //   position = 1;
+    //   return indexOfRoot;
+    // } else {
+    //   if (direction == Direction.right) {
+    //     return parent!;
+    //   } else if (direction == Direction.left) {
+    //     parent?.position--;
+    //     return parent!;
+    //   } else {
+    //     return parent!.move(direction);
+    //   }
+    // }
   }
 
   @override
@@ -78,12 +97,12 @@ class MathNthRootNode extends MathNode {
       parent!.deleteActiveChild();
       return parent;
     } else {
+      // Inside the Radicand
       if (position == 2) {
-        position = 1;
+        position == 1;
         return indexOfRoot.deleteActiveChild();
-      } else {
-        return null;
       }
+      return null;
     }
   }
 }

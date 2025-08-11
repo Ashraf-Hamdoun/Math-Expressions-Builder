@@ -1,3 +1,6 @@
+## 1.1.2
+  - Remove some bugs & handle workings.
+
 ## 1.1.1
   - Format all dart files to match the Dart formatter.
 

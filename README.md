@@ -56,7 +56,7 @@ Add `math_expressions_builder` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  math_expressions_builder: ^1.1.1 # Always use the latest stable version
+  math_expressions_builder: ^1.1.2 # Always use the latest stable version
 ```
 
 Then, run `flutter pub get` or `dart pub get`.

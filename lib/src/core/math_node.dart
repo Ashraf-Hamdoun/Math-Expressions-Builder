@@ -167,7 +167,6 @@ abstract class MathNode extends MathElement {
       // Remove the active child
       if (position >= 1) {
         LaTeXElement activeChild = children[position];
-        print("Active child to be deleted: ${activeChild.toLaTeXString()}");
 
         _children.remove(activeChild);
         _childrenIDs.remove(activeChild.id);
@@ -176,7 +175,6 @@ abstract class MathNode extends MathElement {
         setDirty();
         updateParent(id, toLaTeXString());
       }
-      print('position is $position and parent is $info');
       return this;
     } else {
       return null;

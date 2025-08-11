@@ -32,6 +32,7 @@ MathNode? handleMove(Direction direction, MathNode parent) {
       break;
   }
 
+  // Return new parent.
   if (proposedParent != null && proposedParent != parent) {
     if (proposedParent.childrenIDs.contains(parent.id)) {
       if (proposedParent is MathFractionNode) {
@@ -111,8 +112,9 @@ MathNode? handleMoveLeft(MathNode parent) {
     if (grandParent != null) {
       if (grandParent is MathFractionNode) {
         proposedParent = grandParent.move(Direction.left);
-      }
-      if (grandParent is MathIntegralNode) {
+      } else if (grandParent is MathNthRootNode) {
+        proposedParent = grandParent.move(Direction.left);
+      } else if (grandParent is MathIntegralNode) {
         proposedParent = grandParent.move(Direction.left);
       } else if (grandParent is MathSummationNode) {
         proposedParent = grandParent.move(Direction.left);
@@ -136,9 +138,11 @@ MathNode? handleMoveDown(MathNode parent) {
   if (grandParent != null) {
     if (parent is MathNodeWithInitialType &&
         parent.initialType == METype.numeratorNode) {
+      grandParent.position = 2;
       proposedParent = (grandParent as MathFractionNode).denominator;
     } else if (parent is MathNodeWithInitialType &&
         parent.initialType == METype.upperLimitNode) {
+      grandParent.position = 1;
       if (grandParent is MathIntegralNode) {
         proposedParent = grandParent.lowerLimit;
       } else if (grandParent is MathSummationNode) {
@@ -162,9 +166,11 @@ MathNode? handleMoveUp(MathNode parent) {
   if (grandParent != null) {
     if (parent is MathNodeWithInitialType &&
         parent.initialType == METype.denominatorNode) {
+      grandParent.position = 1;
       proposedParent = (grandParent as MathFractionNode).numerator;
     } else if (parent is MathNodeWithInitialType &&
         parent.initialType == METype.lowerLimitNode) {
+      grandParent.position = 2;
       if (grandParent is MathIntegralNode) {
         proposedParent = grandParent.upperLimit;
       } else if (grandParent is MathSummationNode) {

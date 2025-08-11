@@ -257,37 +257,43 @@ class MathInputController {
 
   /// Moves the cursor up in the expression tree.
   void moveUp() {
-    _mathTree.moveUp();
-    _notifyListeners();
+    if (_mathTree.moveUp()) {
+      _notifyListeners();
+    }
   }
 
   /// Moves the cursor down in the expression tree.
   void moveDown() {
-    _mathTree.moveDown();
-    _notifyListeners();
+    if (_mathTree.moveDown()) {
+      _notifyListeners();
+    }
   }
 
   /// Moves the cursor left in the expression tree.
   void moveLeft() {
-    _mathTree.moveLeft();
-    _notifyListeners();
+    if (_mathTree.moveLeft()) {
+      _notifyListeners();
+    }
   }
 
   /// Moves the cursor right in the expression tree.
   void moveRight() {
-    _mathTree.moveRight();
-    _notifyListeners();
+    if (_mathTree.moveRight()) {
+      _notifyListeners();
+    }
   }
 
   /// Deletes the element at the current cursor position.
   void pressDelete() {
-    _mathTree.delete();
-    _notifyListeners();
+    if (_mathTree.delete()) {
+      _notifyListeners();
+    }
   }
 
   /// Clears the entire expression tree.
   void pressClear() {
-    _mathTree.clear();
-    _notifyListeners();
+    if (_mathTree.clear()) {
+      _notifyListeners();
+    }
   }
 }
