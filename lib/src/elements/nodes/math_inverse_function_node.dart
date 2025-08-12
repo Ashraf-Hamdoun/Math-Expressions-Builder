@@ -19,8 +19,8 @@ class MathInverseFunctionNode extends MathNode {
   @override
   Expressions computeExpressions() {
     return Expressions(
-      latex: "\\$function(${super.computeExpressions().latex})^{-1}",
-      math: "(1 / $function${super.computeExpressions().math})",
+      latex: "\\$function^{-1}(${super.computeExpressions().latex})",
+      math: "(a$function${super.computeExpressions().math})",
     );
   }
 }

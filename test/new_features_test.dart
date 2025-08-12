@@ -94,24 +94,24 @@ void main() {
       controller.pressInversedSine();
       controller.pressNumber("0.5");
 
-      expect(mathTree.toLaTeXString(), r'\(\sin(0.5|)^{-1}\)');
-      expect(mathTree.toMathString(), '((1 / sin(0.5)))');
+      expect(mathTree.toLaTeXString(), r'\(\sin^{-1}(0.5|)\)');
+      expect(mathTree.toMathString(), '((asin(0.5)))');
     });
 
     test('should add inversed cosine function correctly', () {
       controller.pressInversedCosine();
       controller.pressNumber("0.8");
 
-      expect(mathTree.toLaTeXString(), r'\(\cos(0.8|)^{-1}\)');
-      expect(mathTree.toMathString(), '((1 / cos(0.8)))');
+      expect(mathTree.toLaTeXString(), r'\(\cos^{-1}(0.8|)\)');
+      expect(mathTree.toMathString(), '((acos(0.8)))');
     });
 
     test('should add inversed tangent function correctly', () {
       controller.pressInversedTangent();
       controller.pressNumber("1");
 
-      expect(mathTree.toLaTeXString(), r'\(\tan(1|)^{-1}\)');
-      expect(mathTree.toMathString(), '((1 / tan(1)))');
+      expect(mathTree.toLaTeXString(), r'\(\tan^{-1}(1|)\)');
+      expect(mathTree.toMathString(), '((atan(1)))');
     });
 
     test('should add Pi symbol correctly', () {

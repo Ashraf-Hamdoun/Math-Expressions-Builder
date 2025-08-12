@@ -1,3 +1,7 @@
+## 1.1.3
+  - Corrected LaTeX output for inverse trigonometric functions to use `\sin^{-1}(...)` format.
+  - Corrected math string output for inverse trigonometric functions to use `asin(...)` format.
+
 ## 1.1.2
   - Remove some bugs & handle workings.
 

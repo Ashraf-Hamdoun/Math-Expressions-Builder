@@ -80,33 +80,33 @@ void main() {
       tree.addChildNode(METype.inverseFunctionNode, content: "sin");
       tree.addChildLeaf(METype.variableLeaf, "x");
 
-      expect(tree.toLaTeXString(), r'\(4+\sin(x|)^{-1}\)');
-      expect(tree.toMathString(), '(4+(1 / sin(x)))');
+      expect(tree.toLaTeXString(), r'\(4+\sin^{-1}(x|)\)');
+      expect(tree.toMathString(), '(4+(asin(x)))');
 
       // Leave the node
       tree.moveRight();
-      expect(tree.toLaTeXString(), r'\(4+\sin(x)^{-1}|\)');
-      expect(tree.toMathString(), '(4+(1 / sin(x)))');
+      expect(tree.toLaTeXString(), r'\(4+\sin^{-1}(x)|\)');
+      expect(tree.toMathString(), '(4+(asin(x)))');
 
       // Enter the node
       tree.moveLeft();
-      expect(tree.toLaTeXString(), r'\(4+\sin(x|)^{-1}\)');
-      expect(tree.toMathString(), '(4+(1 / sin(x)))');
+      expect(tree.toLaTeXString(), r'\(4+\sin^{-1}(x|)\)');
+      expect(tree.toMathString(), '(4+(asin(x)))');
 
       // Moving through leaves of the node.
       tree.moveLeft();
-      expect(tree.toLaTeXString(), r'\(4+\sin(|x)^{-1}\)');
-      expect(tree.toMathString(), '(4+(1 / sin(x)))');
+      expect(tree.toLaTeXString(), r'\(4+\sin^{-1}(|x)\)');
+      expect(tree.toMathString(), '(4+(asin(x)))');
 
       // Leaving the node
       tree.moveLeft();
-      expect(tree.toLaTeXString(), r'\(4+|\sin(x)^{-1}\)');
-      expect(tree.toMathString(), '(4+(1 / sin(x)))');
+      expect(tree.toLaTeXString(), r'\(4+|\sin^{-1}(x)\)');
+      expect(tree.toMathString(), '(4+(asin(x)))');
 
       // Enter the node
       tree.moveRight();
-      expect(tree.toLaTeXString(), r'\(4+\sin(|x)^{-1}\)');
-      expect(tree.toMathString(), '(4+(1 / sin(x)))');
+      expect(tree.toLaTeXString(), r'\(4+\sin^{-1}(|x)\)');
+      expect(tree.toMathString(), '(4+(asin(x)))');
     });
 
     test('should handle integral node movement correctly', () {

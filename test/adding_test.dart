@@ -37,8 +37,8 @@ void main() {
       tree.addChildLeaf(METype.numberLeaf, "8");
       tree.addChildLeaf(METype.numberLeaf, "5");
 
-      expect(tree.toLaTeXString(), r'\(1-\sin(85|)^{-1}\)');
-      expect(tree.toMathString(), '(1-(1 / sin(85)))');
+      expect(tree.toLaTeXString(), r'\(1-\sin^{-1}(85|)\)');
+      expect(tree.toMathString(), '(1-(asin(85)))');
     });
 
     test("should add fraction node correctly", () {
