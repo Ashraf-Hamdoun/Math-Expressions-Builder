@@ -1,3 +1,9 @@
+## 1.1.4
+  - Enhanced README.md for improved professionalism, clarity, and conciseness.
+  - Added a new section to README.md showcasing supported LaTeX expression examples.
+  - Included a note in README.md about upcoming `toJsonString()` feature for JSON output.
+  - Corrected typo in `CHANGELOG.md` (functionallity -> functionality). 
+
 ## 1.1.3
   - Corrected LaTeX output for inverse trigonometric functions to use `\sin^{-1}(...)` format.
   - Corrected math string output for inverse trigonometric functions to use `asin(...)` format.
@@ -26,7 +32,7 @@
 - Updated package description and documentation for clarity ahead of publishing.
 
 ## 1.0.3
-- Add some new features to core functionallity for building Math & LaTeX expresssions.
+- Add some new features to core functionality for building Math & LaTeX expresssions.
 
 ## 1.0.2
 - Added `MathInputController` for simplified, button-press like input of common mathematical elements.

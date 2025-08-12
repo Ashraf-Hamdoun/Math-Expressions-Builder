@@ -6,7 +6,7 @@
 
 > **Status:** This package is considered **stable** and ready for production use.
 
-## Programmatic LaTeX and Dart Math Expression Construction
+## A Powerful Dart Package for Programmatic Construction and Manipulation of LaTeX Math Expressions
 
 `math_expressions_builder` is a powerful and intuitive Dart package for programmatically constructing, manipulating, and rendering complex mathematical expressions. It elevates your app beyond simple string concatenation by providing a sophisticated tree-based data model. This ensures that your expressions are always syntactically correct and semantically rich.
 
@@ -14,7 +14,7 @@ This package is ideal for educational apps, scientific calculators, dynamic form
 
 ## Why `math_expressions_builder`?
 
-While you can build math expressions with string concatenation, it quickly becomes complex and error-prone, especially with nested elements like fractions, roots, and functions. `math_expressions_builder` solves this by representing each expression as a logical tree.
+Building complex mathematical expressions with string concatenation quickly becomes unwieldy and error-prone, especially when dealing with nested elements like fractions, roots, and functions. `math_expressions_builder` addresses this challenge by representing each expression as a robust, logical tree.
 
 -   **Syntactic Correctness**: The tree structure ensures that expressions are always well-formed. You can't create an invalid state, like a fraction with no denominator.
 -   **Easy Manipulation**: The built-in cursor allows you to navigate the expression and insert or delete elements at any point, just like in a real math editor.
@@ -23,12 +23,13 @@ While you can build math expressions with string concatenation, it quickly becom
 
 ## Key Capabilities
 
--   **🌳 Hierarchical Tree-Based Model**: Represents expressions as a logical tree of nodes (`FractionNode`, `IntegralNode`) and leaves (`NumberLeaf`, `OperatorLeaf`), allowing for robust management of complex formulas.
--   **✍️ Intelligent Cursor-Based Manipulation**: Features an advanced cursor for precise, programmatic navigation (`moveUp`, `moveDown`, `moveLeft`, `moveRight`) and targeted editing. The cursor intelligently moves into and out of nested elements.
--   **✨ Dual Expression Representation**:
+-   **Hierarchical Tree-Based Model**: Represents expressions as a logical tree of nodes (`FractionNode`, `IntegralNode`) and leaves (`NumberLeaf`, `OperatorLeaf`), allowing for robust management of complex formulas.
+-   **Intelligent Cursor-Based Manipulation**: Features an advanced cursor for precise, programmatic navigation (`moveUp`, `moveDown`, `moveLeft`, `moveRight`) and targeted editing. The cursor intelligently moves into and out of nested elements.
+-   **Dual Expression Representation**:
     -   `toLaTeXString()`: Generates a beautiful, render-ready LaTeX string, compatible with any LaTeX rendering engine (like `flutter_math_fork`). It includes a `|` character to show the current cursor position.
     -   `toMathString()`: Generates a structured, Dart-like string representation (e.g., `(1+(sqrt(9)))`) suitable for computation, logging, or transformation into another format.
--   **🧮 Comprehensive LaTeX Element Support**: Out-of-the-box support for a wide array of math constructs, including:
+    -   *Future updates will include `toJsonString()` for JSON-formatted expression output.*
+-   **Comprehensive LaTeX Element Support**: Out-of-the-box support for a wide array of math constructs, including:
     -   Fractions (`\frac{...}{...}`)
     -   Roots (Square `\sqrt{...}`, Cube `\sqrt[3]{...}`, Nth `\sqrt[n]{...}`)
     -   Powers and Superscripts (`^{...}`)
@@ -36,13 +37,63 @@ While you can build math expressions with string concatenation, it quickly becom
     -   Integrals (`\int_{...}^{...}{...}`)
     -   Summations (`\sum_{...}^{...}{...}`)
     -   Standard operators, numbers, variables, and symbols.
--   **✨ Simplified Input with `MathInputController`**: Offers a convenient, "button-press" like interface for quickly building expressions, abstracting away the underlying `METype` and content details for common inputs.
--   **🚀 Pure Dart & Cross-Platform Compatibility**: Developed entirely in Dart, ensuring seamless integration and consistent performance across all Dart and Flutter supported platforms (Web, Mobile, Desktop).
--   **⚡️ Optimized Performance**: Employs a "dirty-checking" mechanism to intelligently recompute only the modified segments of the LaTeX string, minimizing overhead and ensuring efficient rendering, particularly for dynamic or frequently updated expressions.
+-   **Simplified Input with `MathInputController`**: Offers a convenient, "button-press" like interface for quickly building expressions, abstracting away the underlying `METype` and content details for common inputs.
+-   **Pure Dart & Cross-Platform Compatibility**: Developed entirely in Dart, ensuring seamless integration and consistent performance across all Dart and Flutter supported platforms (Web, Mobile, Desktop).
+-   **Optimized Performance**: Employs a "dirty-checking" mechanism to intelligently recompute only the modified segments of the LaTeX string, minimizing overhead and ensuring efficient rendering, particularly for dynamic or frequently updated expressions.
+
+## Supported LaTeX Expressions
+
+`math_expressions_builder` supports a wide range of mathematical expressions, which can be programmatically constructed and rendered as LaTeX. Below are some examples of the types of expressions you can build:
+
+### Basic Operations and Numbers
+- **Simple Addition**: \(1 + 2\)
+  ![Simple Addition](https://latex.codecogs.com/svg.latex?1%20%2B%202)
+- **Multiplication and Division**: \(3 \times 4 \div 5\)
+  ![Multiplication and Division](https://latex.codecogs.com/svg.latex?3%20%5Ctimes%204%20%5Cdiv%205)
+
+### Fractions
+- **Simple Fraction**: \(\frac{1}{2}\)
+  ![Simple Fraction](https://latex.codecogs.com/svg.latex?%5Cfrac%7B1%7D%7B2%7D)
+- **Complex Fraction**: \(\frac{x+y}{a-b}\)
+  ![Complex Fraction](https://latex.codecogs.com/svg.latex?%5Cfrac%7Bx%2By%7D%7Ba-b%7D)
+
+### Roots
+- **Square Root**: \(\sqrt{9}\)
+  ![Square Root](https://latex.codecogs.com/svg.latex?%5Csqrt%7B9%7D)
+- **Cube Root**: \(\sqrt[3]{27}\)
+  ![Cube Root](https://latex.codecogs.com/svg.latex?%5Csqrt%5B3%5D%7B27%7D)
+- **Nth Root**: \(\sqrt[n]{x}\)
+  ![Nth Root](https://latex.codecogs.com/svg.latex?%5Csqrt%5Bn%5D%7Bx%7D)
+
+### Powers and Superscripts
+- **Simple Power**: \(x^2\)
+  ![Simple Power](https://latex.codecogs.com/svg.latex?x%5E2)
+- **Nested Power**: \(e^{x^2}\)
+  ![Nested Power](https://latex.codecogs.com/svg.latex?e%5E%7Bx%5E2%7D)
+
+### Functions
+- **Trigonometric Functions**: \(\sin(x)\), \(\cos(y)\), \(\tan(z)\)
+  ![Trigonometric Functions](https://latex.codecogs.com/svg.latex?%5Csin(x)%2C%20%5Ccos(y)%2C%20%5Ctan(z))
+- **Inverse Trigonometric Functions**: \(\sin^{-1}(x)\), \(\cos^{-1}(y)\), \(\tan^{-1}(z)\)
+  ![Inverse Trigonometric Functions](https://latex.codecogs.com/svg.latex?%5Csin%5E%7B-1%7D(x)%2C%20%5Ccos%5E%7B-1%7D(y)%2C%20%5Ctan%5E%7B-1%7D(z))
+- **Logarithms**: \(\ln(x)\), \(\log_{10}(y)\)
+  ![Logarithms](https://latex.codecogs.com/svg.latex?%5Cln(x)%2C%20%5Clog_%7B10%7D(y))
+
+### Integrals
+- **Definite Integral**: \(\int_{a}^{b} f(x) \,dx\)
+  ![Definite Integral](https://latex.codecogs.com/svg.latex?%5Cint_%7Ba%7D%5E%7Bb%7D%20f(x)%20%5C%2Cdx)
+
+### Summations
+- **Summation**: \(\sum_{i=1}^{n} (2i+1)\)
+  ![Summation](https://latex.codecogs.com/svg.latex?%5Csum_%7Bi=1%7D%5E%7Bn%7D%20(2i%2B1))
+
+### Special Symbols and Variables
+- **Pi and Euler's Number**: \(\pi\), \(e\)
+  ![Pi and Euler's Number](https://latex.codecogs.com/svg.latex?%5Cpi%2C%20e)
+- **Parentheses and Brackets**: \((x+y)\), \([a-b]\), \(\{c \div d\}\)
+  ![Parentheses and Brackets](https://latex.codecogs.com/svg.latex?(x%2By)%2C%20%5Ba-b%5D%2C%20%5C%7Bc%20%5Cdiv%20d%5C%7D)
 
 ## Visual Demonstration
-
-Building the quadratic formula programmatically:
 
 ![Quadratic Formula Demo](https://latex.codecogs.com/svg.latex?x=\frac{-b\pm\sqrt{b^2-4ac}}{2a})
 
@@ -56,7 +107,7 @@ Add `math_expressions_builder` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  math_expressions_builder: ^1.1.3 # Always use the latest stable version
+  math_expressions_builder: ^1.1.4 # Always use the latest stable version
 ```
 
 Then, run `flutter pub get` or `dart pub get`.
